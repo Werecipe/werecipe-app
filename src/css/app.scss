@@ -1,0 +1,43 @@
+// app global css in SCSS form
+@import url("https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;1,500;1,800&display=swap");
+
+@font-face {
+  font-family: "Louis George Café Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Louis George Café Bold"),
+    url("../assets/Louis-George-font/Louis-George-Cafe-Bold.woff"),
+    format("woff");
+}
+
+@font-face {
+  font-family: "Louis George Café Bold Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Louis George Café Bold Italic"),
+    url("../assets/Louis-George-font/Louis-George-Cafe-Bold-Italic.woff")
+      format("woff");
+}
+
+.georgeBold {
+  font-family: "Louis George Café Bold";
+}
+.georgeItalic {
+  font-family: "Louis George Café Bold Italic";
+}
+
+.petrona {
+  font-family: "Petrona", serif;
+}
+.outline {
+  border: 1px solid $secondary;
+}
+.gap-2rem {
+  gap: 2rem;
+}
+.gap-4rem {
+  gap: 4rem;
+}
+.overflow-auto {
+  overflow: auto;
+}
