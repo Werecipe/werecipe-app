@@ -1,13 +1,13 @@
 <template>
 	<div
-		class="q-pa-xl flex flex-center column q-gutter-y-xl login-style rounded-borders bg-white text-primary shadow-5"
+		class="q-pa-xl flex flex-center column login-style rounded-borders bg-white text-primary shadow-5"
 	>
 		<h1 class="text-h3">Log in</h1>
-		<div class="q-gutter-y-md column">
+		<div class="q-gutter-y-xs column">
 			<q-form
 				@submit="onSubmit"
 				@reset="onReset"
-				class="q-gutter-lg q-pa-lg text-primary"
+				class="q-gutter-xs q-pa-lg text-primary"
 			>
 				<q-input
 					outlined
@@ -38,7 +38,7 @@
 					</template>
 				</q-input>
 
-				<div>
+				<div class="q-my-lg">
 					<q-btn label="Submit" type="submit" color="secondary" />
 					<q-btn
 						label="Reset"

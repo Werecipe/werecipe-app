@@ -1,16 +1,16 @@
 <template>
 	<div
-		class="q-pa-xl flex flex-center column q-gutter-y-xl login-style rounded-borders bg-white text-primary"
+		class="q-px-xl q-py-md flex flex-center column login-style rounded-borders bg-white text-primary"
 	>
-		<h1 class="text-h3">Sign Up</h1>
+		<h1 class="text-h3 self-start q-px-lg">Sign Up</h1>
 		<div class="column wrap full-width q-pa-lg">
 			<q-form
 				@submit="onSubmit"
 				@reset="onReset"
-				class="full-width row wrap justify-center items-start content-center"
+				class="full-width row wrap justify-start items-start content-center"
 				autocomplete="off"
 			>
-				<div class="col-md-12 col-lg-2 q-gutter-y-md overflow-auto">
+				<div class="col-xs-12 col-md-3 q-gutter-y-xs overflow-auto">
 					<q-input
 						outlined
 						v-model="email"
@@ -18,10 +18,11 @@
 						type="email"
 						placeholder="email"
 						standout="dark bg-white"
-						class=""
+						label-color="info"
 						dense
 						require
 						lazy-rules
+						hide-bottom-space
 						:rules="[
 							(val) =>
 								(val && val.length > 0) || 'Please enter a valid email address',
@@ -33,9 +34,11 @@
 						label="username"
 						type="text"
 						standout="dark bg-white"
+						label-color="info"
 						placeholder="username"
 						dense
 						lazy-rules
+						hide-bottom-space
 						:rules="[
 							(val) =>
 								(val && val.length > 0) ||
@@ -47,7 +50,9 @@
 						dense
 						outlined
 						require
+						hide-bottom-space
 						placeholder="password"
+						label-color="info"
 						:type="isPwd ? 'password' : 'text'"
 						:rules="[
 							(val) =>
@@ -68,6 +73,8 @@
 						dense
 						outlined
 						require
+						hide-bottom-space
+						label-color="info"
 						placeholder="repeat password"
 						:type="isPwdTwo ? 'password' : 'text'"
 						hint="Repeat password"
@@ -88,7 +95,9 @@
 						label="name"
 						type="text"
 						standout="dark bg-white"
+						label-color="info"
 						dense
+						hide-bottom-space
 						placeholder="name"
 					/>
 					<q-input
@@ -97,7 +106,9 @@
 						label="surname"
 						type="text"
 						standout="dark bg-white"
+						label-color="info"
 						dense
+						hide-bottom-space
 						placeholder="surname"
 					/>
 					<q-input
@@ -106,36 +117,32 @@
 						label="age"
 						type="number"
 						standout="dark bg-white"
+						label-color="info"
 						dense
+						hide-bottom-space
 						placeholder="age"
 					/>
 					<q-select
 						outlined
 						dense
+						hide-bottom-space
+						label-color="info"
 						v-model="gender"
 						:options="optionsGender"
 						label="Gender"
 					/>
-
-					<div>
-						<q-btn label="Submit" type="submit" color="secondary" />
-						<q-btn
-							label="Reset"
-							type="reset"
-							color="warning"
-							flat
-							class="q-ml-sm"
-						/>
-					</div>
 				</div>
-				<div class="col-sm-12 col-lg-8 offset-1 q-gutter-sm">
+				<div class="col-sm-12 col-md-7 offset-md-1 q-gutter-sm">
 					<div class="col-sm-12">
-						<p class="text-h6">Cuisine interests:</p>
+						<p class="georgeBold">Cuisine interests:</p>
 						<div>
 							<q-option-group
 								name="cuisines"
 								keep-color
 								inline
+								dense
+								size="1.2rem"
+								class="q-mr-md petrona text-sm"
 								v-model="chosenCuisines"
 								:options="cuisines"
 								color="secondary"
@@ -144,12 +151,15 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="text-h6">Diet interests:</p>
+						<p class="georgeBold">Diet interests:</p>
 						<div>
 							<q-option-group
 								name="diet"
 								keep-color
 								inline
+								dense
+								size="1.2rem"
+								class="q-mr-md petrona text-sm"
 								v-model="chosenDiets"
 								:options="diets"
 								color="secondary"
@@ -158,11 +168,14 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="text-h6">Lifestyle:</p>
+						<p class="georgeBold">Lifestyle:</p>
 						<div>
 							<q-option-group
 								name="lifestyle"
 								keep-color
+								dense
+								size="1.2rem"
+								class="q-mr-md petrona text-sm"
 								inline
 								v-model="chosenLifestyles"
 								:options="lifestyles"
@@ -172,12 +185,15 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="text-h6">Health and allergy:</p>
+						<p class="georgeBold">Health and allergy:</p>
 						<div>
 							<q-option-group
 								name="health"
 								keep-color
 								inline
+								dense
+								size="1.2rem"
+								class="q-mr-md petrona text-sm"
 								v-model="chosenHealths"
 								:options="healths"
 								color="secondary"
@@ -186,12 +202,15 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="text-h6">Preferred maximum cook time:</p>
+						<p class="georgeBold">Preferred maximum cook time:</p>
 						<div>
 							<q-option-group
 								name="time"
 								keep-color
 								inline
+								dense
+								size="1.2rem"
+								class="q-mr-md petrona text-sm"
 								v-model="chosenTimes"
 								:options="times"
 								color="secondary"
@@ -199,6 +218,16 @@
 							/>
 						</div>
 					</div>
+				</div>
+				<div class="q-my-lg">
+					<q-btn label="Submit" type="submit" color="secondary" />
+					<q-btn
+						label="Reset"
+						type="reset"
+						color="warning"
+						flat
+						class="q-ml-sm"
+					/>
 				</div>
 			</q-form>
 		</div>

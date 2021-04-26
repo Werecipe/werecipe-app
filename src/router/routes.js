@@ -12,7 +12,7 @@ const routes = [
  
       },
       {
-        path: '/signUp', component: () => import('pages/TheSignUpPage')
+        path: '/sign-up', component: () => import('pages/TheSignUpPage')
       }       
     ]
   },

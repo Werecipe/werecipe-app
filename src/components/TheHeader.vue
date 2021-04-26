@@ -14,9 +14,10 @@
 				active-bg-color="secondary"
 				indicator-color="secondary"
 			>
-				<q-route-tab to="/logIn" label="Log in" />
+				<q-route-tab to="/" label="Home" />
+				<q-route-tab to="/login" label="Log in" />
 
-				<q-route-tab to="/signUp" label="Sign Up" />
+				<q-route-tab to="/sign-up" label="Sign Up" />
 			</q-tabs> </q-toolbar
 	></q-header>
 </template>
