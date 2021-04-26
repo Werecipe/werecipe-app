@@ -5,8 +5,13 @@
 		<p>
 			To save your recipes, access content and professional recipes from all
 			over the world please
-			<span to="./login" class="underline cursor-pointer">Log-in</span> or
-			<spam to="./sign-up" class="underline cursor-pointer">Sign-up</spam>
+			<router-link to="./login" class="underline cursor-pointer"
+				>Log-in</router-link
+			>
+			or
+			<router-link to="./sign-up" class="underline cursor-pointer"
+				>Sign-up</router-link
+			>
 		</p></q-page
 	>
 </template>

@@ -141,7 +141,7 @@
 								keep-color
 								inline
 								dense
-								size="1.2rem"
+								size="1.3rem"
 								class="q-mr-md petrona text-sm"
 								v-model="chosenCuisines"
 								:options="cuisines"
@@ -158,7 +158,7 @@
 								keep-color
 								inline
 								dense
-								size="1.2rem"
+								size="1.3rem"
 								class="q-mr-md petrona text-sm"
 								v-model="chosenDiets"
 								:options="diets"
@@ -174,7 +174,7 @@
 								name="lifestyle"
 								keep-color
 								dense
-								size="1.2rem"
+								size="1.3rem"
 								class="q-mr-md petrona text-sm"
 								inline
 								v-model="chosenLifestyles"
@@ -192,7 +192,7 @@
 								keep-color
 								inline
 								dense
-								size="1.2rem"
+								size="1.3rem"
 								class="q-mr-md petrona text-sm"
 								v-model="chosenHealths"
 								:options="healths"
@@ -209,7 +209,7 @@
 								keep-color
 								inline
 								dense
-								size="1.2rem"
+								size="1.3rem"
 								class="q-mr-md petrona text-sm"
 								v-model="chosenTimes"
 								:options="times"
