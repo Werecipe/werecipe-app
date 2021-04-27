@@ -10,7 +10,7 @@
 				class="full-width row wrap justify-start items-start content-center"
 				autocomplete="off"
 			>
-				<div class="col-xs-12 col-md-3 q-gutter-y-xs overflow-auto">
+				<div class="col-xs-12 col-md-3 q-gutter-y-sm overflow-auto">
 					<q-input
 						outlined
 						v-model="email"
@@ -141,8 +141,8 @@
 								keep-color
 								inline
 								dense
-								size="1.3rem"
-								class="q-mr-md petrona text-sm"
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
 								v-model="chosenCuisines"
 								:options="cuisines"
 								color="secondary"
@@ -158,8 +158,7 @@
 								keep-color
 								inline
 								dense
-								size="1.3rem"
-								class="q-mr-md petrona text-sm"
+								class="q-mr-md petrona text-1rem"
 								v-model="chosenDiets"
 								:options="diets"
 								color="secondary"
@@ -174,8 +173,8 @@
 								name="lifestyle"
 								keep-color
 								dense
-								size="1.3rem"
-								class="q-mr-md petrona text-sm"
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
 								inline
 								v-model="chosenLifestyles"
 								:options="lifestyles"
@@ -192,8 +191,8 @@
 								keep-color
 								inline
 								dense
-								size="1.3rem"
-								class="q-mr-md petrona text-sm"
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
 								v-model="chosenHealths"
 								:options="healths"
 								color="secondary"
@@ -209,8 +208,8 @@
 								keep-color
 								inline
 								dense
-								size="1.3rem"
-								class="q-mr-md petrona text-sm"
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
 								v-model="chosenTimes"
 								:options="times"
 								color="secondary"
