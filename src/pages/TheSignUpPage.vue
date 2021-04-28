@@ -1,8 +1,8 @@
 <template>
 	<div
-		class="q-px-xl q-py-md flex flex-center column login-style rounded-borders bg-white text-primary"
+		class="q-px-md q-py-sm flex flex-center column rounded-borders bg-white text-primary"
 	>
-		<h1 class="text-h3 self-start q-px-lg">Sign Up</h1>
+		<h1 class="text-h3 self-start q-px-lg georgeItalic">Sign Up</h1>
 		<div class="column wrap full-width q-pa-lg">
 			<q-form
 				@submit="onSubmit"
@@ -132,9 +132,9 @@
 						label="Gender"
 					/>
 				</div>
-				<div class="col-sm-12 col-md-7 offset-md-1 q-gutter-sm">
+				<div class="col-sm-12 col-md-8 offset-md-1 q-gutter-sm">
 					<div class="col-sm-12">
-						<p class="georgeBold">Cuisine interests:</p>
+						<p class="georgeBold text-h6 text-black">Cuisine interests:</p>
 						<div>
 							<q-option-group
 								name="cuisines"
@@ -151,7 +151,7 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="georgeBold">Diet interests:</p>
+						<p class="georgeBold text-h6 text-black">Diet interests:</p>
 						<div>
 							<q-option-group
 								name="diet"
@@ -167,7 +167,7 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="georgeBold">Lifestyle:</p>
+						<p class="georgeBold text-h6 text-black">Lifestyle:</p>
 						<div>
 							<q-option-group
 								name="lifestyle"
@@ -184,7 +184,7 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="georgeBold">Health and allergy:</p>
+						<p class="georgeBold text-h6 text-black">Health and allergy:</p>
 						<div>
 							<q-option-group
 								name="health"
@@ -201,7 +201,9 @@
 						</div>
 					</div>
 					<div class="col-sm-12">
-						<p class="georgeBold">Preferred maximum cook time:</p>
+						<p class="georgeBold text-h6 text-black">
+							Preferred maximum cook time:
+						</p>
 						<div>
 							<q-option-group
 								name="time"
@@ -219,7 +221,20 @@
 					</div>
 				</div>
 				<div class="q-my-lg">
-					<q-btn label="Submit" type="submit" color="secondary" />
+					<div>
+						<q-toggle
+							v-model="accept"
+							label="I accept the license and terms"
+							color="positive"
+							size="2.2rem"
+						/>
+					</div>
+					<q-btn
+						label="sign up"
+						type="submit"
+						color="secondary"
+						:disable="!accept"
+					/>
 					<q-btn
 						label="Reset"
 						type="reset"
@@ -253,6 +268,7 @@
 				chosenLifestyles: [],
 				chosenHealths: [],
 				chosenTimes: [],
+				accept: false,
 
 				optionsGender: ["Female", "Male", "Other"],
 				cuisines: [
@@ -582,26 +598,9 @@
 				],
 			};
 		},
-		computed: {
-			// selection() {
-			// 	return Object.keys(this.cuisines)
-			// 		.filter((type) => this.cuisines.selected[type] === true)
-			// 		.join(", ");
-			// },
-			// cuisineArray() {
-			// 	return Object.keys(this.cuisines);
-			// },
-		},
+		computed: {},
 
 		methods: {
-			// chipColor(key) {
-			// 	if (this.cuisines.key) {
-			// 		return "white";
-			// 	} else {
-			// 		return "secondary";
-			// 	}
-			// },
-
 			addToArray(item) {
 				console.log(item);
 				this.chosenCuisines.push(item);

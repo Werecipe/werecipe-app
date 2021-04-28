@@ -2,8 +2,8 @@
 	<div
 		class="q-pa-xl flex flex-center column login-style rounded-borders bg-white text-primary shadow-5"
 	>
-		<h1 class="text-h3">Log in</h1>
-		<div class="q-gutter-y-xs column">
+		<h1 class="text-h3 georgeItalic">Log in</h1>
+		<div class="q-gutter-y-xs flex column justify-center">
 			<q-form
 				@submit="onSubmit"
 				@reset="onReset"
@@ -39,7 +39,7 @@
 				</q-input>
 
 				<div class="q-my-lg">
-					<q-btn label="Submit" type="submit" color="secondary" />
+					<q-btn label="Log in" type="submit" color="secondary" />
 					<q-btn
 						label="Reset"
 						type="reset"
@@ -49,6 +49,12 @@
 					/>
 				</div>
 			</q-form>
+			<p class="text-center text-h5">
+				Or
+				<router-link to="./sign-up" class="underline cursor-pointer"
+					>Sign-up</router-link
+				>
+			</p>
 		</div>
 	</div>
 </template>
@@ -85,6 +91,6 @@
 <style lang="scss">
 	.login-style {
 		width: fit-content;
-		margin: 3rem auto;
+		margin: 0 auto;
 	}
 </style>

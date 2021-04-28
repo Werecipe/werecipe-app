@@ -49,7 +49,17 @@
 }
 .underline {
   text-decoration: underline;
+  color: $primary;
 }
 .width-30 {
   width: 30%;
+}
+.border-btn-right {
+  border-right: 2px solid $primary;
+}
+.border-bottom {
+  border-bottom: 1px solid $primary;
+}
+.align-left {
+  justify-content: flex-start !important;
 }

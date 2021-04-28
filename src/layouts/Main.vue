@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<q-layout view="hHh lpR fFf">
-			<TheHeader></TheHeader>
+			<the-header></the-header>
+
 			<q-page-container>
 				<router-view />
 			</q-page-container>
@@ -22,14 +23,18 @@
 
 <script>
 	export default {
-		name: "MainLayout",
+		name: "Main",
 		components: {
 			TheHeader: () => import("../components/TheHeader"),
-			// TheLoginPage: () => import("../pages/TheLogInPage"),
 		},
 
 		data() {
 			return {};
+		},
+		methods: {
+			openRight() {
+				this.right = !this.right;
+			},
 		},
 	};
 </script>
