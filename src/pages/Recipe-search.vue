@@ -101,7 +101,82 @@
 								<div class="text-h4 q-mb-md petrona text-primary">
 									Ingredients
 								</div>
-								<p>ingredients that you want in your dish</p>
+								<div class="row full-width full-height">
+									<div class="col-xs-12 col-md-6 border-right">
+										<p class="petrona text-primary">
+											Wright ingredients that you want in your dish
+										</p>
+										<div class="list">
+											<div class="item multiple-lines">
+												<q-input
+													v-model="plusIngredient"
+													outlined
+													rounded
+													placeholder="add ingredient name"
+												>
+													<template v-slot:append>
+														<q-icon
+															name="add"
+															color="secondary"
+															@click="addPlusIngredient()"
+														/>
+													</template>
+												</q-input>
+												<div class="item-content">
+													<q-chip
+														v-for="item in chosenIngredientsPlus"
+														:key="item"
+														removable
+														block
+														@remove="removePlus(item)"
+														color="primary"
+														text-color="white"
+														icon="cake"
+													>
+														{{ item }}
+													</q-chip>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<p class="petrona text-primary">
+											Wright ingredients that you don't want in your dish
+										</p>
+										<div class="list">
+											<div class="item multiple-lines">
+												<q-input
+													v-model="minusIngredient"
+													outlined
+													rounded
+													placeholder="add ingredient name"
+												>
+													<template v-slot:append>
+														<q-icon
+															name="add"
+															color="secondary"
+															@click="addMinusIngredient()"
+														/>
+													</template>
+												</q-input>
+												<div class="item-content">
+													<q-chip
+														v-for="item in chosenIngredientsMinus"
+														:key="item"
+														removable
+														block
+														@remove="removeMin(item)"
+														color="primary"
+														text-color="white"
+														icon="cake"
+													>
+														{{ item }}
+													</q-chip>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</q-tab-panel>
 
 							<q-tab-panel name="meal">
@@ -175,7 +250,7 @@
 									v-model="chosenTimes"
 									:options="times"
 									color="secondary"
-									type="toggle"
+									type="radio"
 								/>
 							</q-tab-panel>
 							<q-tab-panel name="diet">
@@ -244,10 +319,22 @@
 							</q-tab-panel>
 							<q-tab-panel name="energy">
 								<div class="text-h4 q-mb-md petrona text-primary">
-									Max number of calories
+									Max number of calories per serving
 								</div>
 
-								<p>Chose the max number per total.</p>
+								<p>Chose the max number per serving.</p>
+								<q-option-group
+									name="energy"
+									keep-color
+									dense
+									size="2.2rem"
+									class="q-mr-md petrona text-1rem"
+									inline
+									v-model="chosenCalories"
+									:options="energy"
+									color="secondary"
+									type="radio"
+								/>
 							</q-tab-panel>
 						</q-tab-panels>
 					</template>
@@ -266,14 +353,19 @@
 				splitterModel: 15,
 				filter: true,
 				recipeName: "",
+				plusIngredient: "",
+				minusIngredient: "",
+				chosenIngredientsPlus: ["one", "two", "three"],
+				chosenIngredientsMinus: ["one", "two", "three"],
 
 				chosenCuisines: [],
 				chosenDiets: [],
 				chosenLifestyles: [],
 				chosenHealths: [],
-				chosenTimes: [],
+				chosenTimes: 0,
 				chosenMeals: [],
 				chosenDish: [],
+				chosenCalories: 0,
 				cuisines: [
 					{
 						label: "American",
@@ -713,11 +805,102 @@
 						selected: false,
 					},
 				],
+				energy: [
+					{
+						label: "100kcal",
+						value: 100,
+						selected: false,
+					},
+					{
+						label: "150kcal",
+						value: 150,
+						selected: false,
+					},
+					{
+						label: "200kcal",
+						value: 200,
+						selected: false,
+					},
+					{
+						label: "250kcal",
+						value: 250,
+						selected: false,
+					},
+					{
+						label: "350kcal",
+						value: 350,
+						selected: false,
+					},
+					{
+						label: "500kcal",
+						value: 500,
+						selected: false,
+					},
+					{
+						label: "750kcal",
+						value: 750,
+						selected: false,
+					},
+					{
+						label: "1000kcal",
+						value: 1000,
+						selected: false,
+					},
+					{
+						label: "1500kcal",
+						value: 1500,
+						selected: false,
+					},
+				],
 			};
 		},
 		methods: {
 			search() {
 				console.log(this.recipeName);
+			},
+
+			removeMin(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+				this.chosenIngredientsMinus = this.chosenIngredientsMinus.filter(
+					(ele) => ele !== item
+				);
+			},
+
+			removePlus(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+				this.chosenIngredientsPlus = this.chosenIngredientsPlus.filter(
+					(ele) => ele !== item
+				);
+			},
+			addPlusIngredient(val) {
+				if (this.plusIngredient) {
+					this.chosenIngredientsPlus.push(this.plusIngredient);
+					this.plusIngredient = "";
+					return;
+				} else {
+					this.notify("negative");
+					this.$q.notify("The field must have value");
+				}
+			},
+			addMinusIngredient(val) {
+				if (this.minusIngredient) {
+					this.chosenIngredientsMinus.push(this.minusIngredient);
+					this.minusIngredient = "";
+					return;
+				} else {
+					this.notify("negative");
+					this.$q.notify("The field must have value");
+				}
+			},
+			notify(type) {
+				this.$q.notify.setDefaults({
+					position: "center",
+					type: type,
+					timeout: 1500,
+					message: "The field must have value",
+					textColor: "white",
+					actions: [{ icon: "close", color: "white" }],
+				});
 			},
 		},
 	};
