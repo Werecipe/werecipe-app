@@ -22,7 +22,7 @@
 				Use the filter options bellow to narrow down your search
 			</p>
 		</div>
-		<div class="row justify-start border-bottom q-mx-xl">
+		<div class="row justify-start items-center border-bottom">
 			<q-btn
 				flat
 				icon="manage_search"
@@ -30,26 +30,186 @@
 				label="filter"
 				color="primary"
 				no-caps
+				size="md"
+				
 			/>
-			<div class="border-btn-right q-px-md q-mr-md">
-				<q-btn flat color="negative" label="reset" no-caps />
+			<div class="">
+				<q-btn flat color="negative" label="reset" no-caps @click="reset()" />
 			</div>
 
-			<p class="q-mb-none q-pb-none petrona text-primary">
-				Your filter parameters:
+			<p class="q-mb-none q-pb-none petrona text-primary ">
+				Your filter parameters: 
+					<span v-show="chosenIngredientsPlus">
+						<span v-for="item in chosenIngredientsPlus"
+														:key="item" @click="removePlus(item)"
+														class="cursor-pointer"> 
+							<q-chip
+														removable
+														size="12px"
+														@remove="removePlus(item)"
+														color="transparent"
+														text-color="primary"
+														class="q-px-sm"
+													
+
+													>
+
+														<q-icon name="add" size="12px"></q-icon>{{ item }}
+													
+													</q-chip>,</span></span>
+					<span v-show="chosenIngredientsMinus">
+						<span v-for="item in chosenIngredientsMinus"
+														:key="item" @click="removeMin(item)"
+														class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeMin(item)"
+														color="transparent"
+														text-color="primary"
+														
+													
+													>
+														<q-icon name="remove"></q-icon>{{ item }}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenMeals">
+						<span v-for="item in chosenMeals"
+														:key="item" @click="removeMeal(item)" class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeMeal( item)"
+														color="transparent"
+														text-color="primary"
+														
+													
+													>
+													{{item}}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenDish">
+						<span v-for="item in chosenDish"
+														:key="item" @click="removeDish(item)"
+														class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeDish(item)"
+														color="transparent"
+														text-color="primary"
+													>
+													{{item}}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenCuisines">
+						<span v-for="item in chosenCuisines"
+														:key="item" @click="removeCuisine(item)" class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeCuisine(item)"
+														color="transparent"
+														text-color="primary"
+													>
+													{{item}}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenTimes">
+						<span @click="removeTime()" class="cursor-pointer"> 
+								<q-chip    
+														removable
+														size="12px"
+														@remove="removeTime()"
+														color="transparent"
+														text-color="primary"
+
+													>
+												{{chosenTimes}}min
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenDiets">
+						<span v-for="item in chosenDiets"
+														:key="item" @click="removeDiet(item)" class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeDiet(item)"
+														color="transparent"
+														text-color="primary"
+													>
+													{{item}}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenHealths">
+						<span v-for="item in chosenHealths"
+														:key="item" @click="removeHealth(item)" class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeHealth(item)"
+														color="transparent"
+														text-color="primary"
+													>
+													{{item}}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenLifestyles">
+						<span v-for="item in chosenLifestyles"
+														:key="item" @click="removeLifestyle(item)" class="cursor-pointer"> 
+								<q-chip
+														
+														removable
+														size="12px"
+														@remove="removeLifestyle(item)"
+														color="transparent"
+														text-color="primary"
+													>
+													{{item}}
+													</q-chip>,
+						</span>
+					</span>
+					<span v-show="chosenCalories">
+						<span @click="removeCalories()" class="cursor-pointer"> 
+								<q-chip    
+														removable
+														size="12px"
+														@remove="removeCalories()"
+														color="transparent"
+														text-color="primary"
+
+													>
+												{{chosenCalories}}kcal
+													</q-chip>,
+						</span>
+					</span>
+					
 			</p>
 		</div>
 		<q-slide-transition>
 			<div v-show="filter">
-				<q-splitter v-model="splitterModel">
+				<q-splitter v-model="splitterModel" :limits="[ 100, Infinity]" unit="px">
 					<template v-slot:before>
 						<q-tabs
 							v-model="tab"
 							vertical
-							inline-label
-							content-class="text-secondary my-class flex-start content-start justify-start q-ml-xl"
 							dense
-							shrink
+							content-class="text-secondary my-class flex-start content-start justify-start"
+						
+							
 						>
 							<q-tab
 								name="ingredients"
@@ -65,7 +225,7 @@
 							<q-tab
 								name="health"
 								icon="health_and_safety"
-								label="Health and allergy"
+								label="Health"
 								no-caps
 							/>
 							<q-tab
@@ -74,14 +234,16 @@
 								label="Lifestyle"
 								no-caps
 							/>
-							<q-tab name="servings" icon="group" label="Servings" no-caps />
+					
 							<q-tab name="energy" icon="bolt" label="Energy" no-caps />
-							<q-btn
-								name="Close"
+							<q-tab
+								name="close"
 								icon="close"
-								label="Close filter"
+								color="negative"
+								content-class="close-btn"
+						
+								padding="0.5rem 1rem"
 								no-caps
-								flat
 								@click="filter = !filter"
 							/>
 						</q-tabs>
@@ -90,12 +252,13 @@
 					<template v-slot:after>
 						<q-tab-panels
 							v-model="tab"
+							infinite
 							animated
 							swipeable
 							vertical
 							keep-alive
-							transition-prev="jump-up"
-							transition-next="jump-up"
+							transition-prev="jump-right"
+							transition-next="jump-right"
 						>
 							<q-tab-panel name="ingredients">
 								<div class="text-h4 q-mb-md petrona text-primary">
@@ -104,36 +267,42 @@
 								<div class="row full-width full-height">
 									<div class="col-xs-12 col-md-6 border-right">
 										<p class="petrona text-primary">
-											Wright ingredients that you want in your dish
+											Write ingredients that you want in your dish
 										</p>
 										<div class="list">
-											<div class="item multiple-lines">
+											<div class="item multiple-lines row">
 												<q-input
 													v-model="plusIngredient"
 													outlined
 													rounded
+													dense
 													placeholder="add ingredient name"
+													class="col-xs-11"
+													@keydown.enter.prevent="addPlusIngredient()"
 												>
 													<template v-slot:append>
 														<q-icon
 															name="add"
 															color="secondary"
 															@click="addPlusIngredient()"
+															
 														/>
 													</template>
 												</q-input>
-												<div class="item-content">
+												<div class="item-content row column justify-start align-start col-xs-12 col-sm-8 col-md-4 col-lg-4 offset-md-1">
 													<q-chip
 														v-for="item in chosenIngredientsPlus"
 														:key="item"
 														removable
-														block
+														size="14px"
 														@remove="removePlus(item)"
-														color="primary"
-														text-color="white"
-														icon="cake"
+														color="transparent"
+														text-color="primary"
+														
 													>
-														{{ item }}
+
+														<q-icon name="add"></q-icon>{{ item }}
+													
 													</q-chip>
 												</div>
 											</div>
@@ -141,15 +310,19 @@
 									</div>
 									<div class="col-xs-12 col-md-6">
 										<p class="petrona text-primary">
-											Wright ingredients that you don't want in your dish
+											Write ingredients that you don't want in your dish
 										</p>
 										<div class="list">
-											<div class="item multiple-lines">
+											<div class="item multiple-lines row">
 												<q-input
 													v-model="minusIngredient"
 													outlined
 													rounded
+													dense
+													class="col-xs-11"
 													placeholder="add ingredient name"
+													@keydown.enter.prevent="addMinusIngredient()"
+													
 												>
 													<template v-slot:append>
 														<q-icon
@@ -159,18 +332,18 @@
 														/>
 													</template>
 												</q-input>
-												<div class="item-content">
+												<div class="item-content row column justify-start align-start col-xs-12 col-sm-8 col-md-6 col-lg-4 offset-md-1">
 													<q-chip
 														v-for="item in chosenIngredientsMinus"
 														:key="item"
 														removable
-														block
+														size="14px"
 														@remove="removeMin(item)"
-														color="primary"
-														text-color="white"
-														icon="cake"
+														color="transparent"
+														text-color="primary"
+													
 													>
-														{{ item }}
+														<q-icon name="remove"></q-icon>{{ item }}
 													</q-chip>
 												</div>
 											</div>
@@ -179,8 +352,8 @@
 								</div>
 							</q-tab-panel>
 
-							<q-tab-panel name="meal">
-								<div class="text-h4 q-mb-md petrona text-primary">Meal</div>
+							<q-tab-panel name="meal" class="row">
+								<div class="text-h4 q-mb-md petrona text-primary col-lg-8"><h3>Meal</h3></div>
 								<p>Chose a meal</p>
 								<q-option-group
 									name="meals"
@@ -239,7 +412,7 @@
 									Meal cook duration
 								</div>
 
-								<p>Chose the maximum time you want to spend cooking.</p>
+								<p>Chose the maximum hours you want to spend cooking.</p>
 								<q-option-group
 									name="time"
 									keep-color
@@ -275,6 +448,7 @@
 								<div class="text-h4 q-mb-md petrona text-primary">
 									Health and allergy concerns
 								</div>
+								<p>Chose which ingredients to exclude from the meal.</p>
 
 								<q-option-group
 									name="health"
@@ -289,7 +463,7 @@
 									type="toggle"
 								/>
 
-								<p>Chose which ingredients to exclude from the meal.</p>
+								
 							</q-tab-panel>
 							<q-tab-panel name="lifestyle">
 								<div class="text-h4 q-mb-md petrona text-primary">
@@ -310,13 +484,7 @@
 									type="toggle"
 								/>
 							</q-tab-panel>
-							<q-tab-panel name="servings">
-								<div class="text-h4 q-mb-md petrona text-primary">
-									No of servings
-								</div>
-
-								<p>Chose number of servings.</p>
-							</q-tab-panel>
+		
 							<q-tab-panel name="energy">
 								<div class="text-h4 q-mb-md petrona text-primary">
 									Max number of calories per serving
@@ -366,6 +534,8 @@
 				chosenMeals: [],
 				chosenDish: [],
 				chosenCalories: 0,
+				// allChoises:[],
+				displaychoises: [],
 				cuisines: [
 					{
 						label: "American",
@@ -854,9 +1024,28 @@
 				],
 			};
 		},
+		computed: {
+				dispayNumber(num) {
+						return num.ToString();
+
+				}
+		},
 		methods: {
 			search() {
 				console.log(this.recipeName);
+			},
+			reset() {
+				this.chosenIngredientsMinus = [];
+				this.chosenIngredientsPlus = [];
+				this.chosenDiets = [];
+				this.chosenDish = [];
+				this.chosenCuisines = [];
+				this.chosenLifestyles = [];
+				this.chosenLifestyles = [];
+				this.chosenMeals = [];
+				this.chosenHealths = [];
+				this.chosenTimes = 0;
+				this.chosenCalories = 0;
 			},
 
 			removeMin(item) {
@@ -871,6 +1060,51 @@
 				this.chosenIngredientsPlus = this.chosenIngredientsPlus.filter(
 					(ele) => ele !== item
 				);
+			},
+			removeMeal(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenMeals = this.chosenMeals.filter(
+					(ele) => ele !== item
+				)
+			},
+			removeDish(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenDish = this.chosenDish.filter(
+					(ele) => ele !== item
+				)
+			},
+			
+			removeDiet(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenDiets = this.chosenDiets.filter(
+					(ele) => ele !== item
+				)
+			},
+			removeHealth(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenHealths = this.chosenHealths.filter(
+					(ele) => ele !== item
+				)
+			},
+			removeCuisine(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenCuisines = this.chosenCuisines.filter(
+					(ele) => ele !== item
+				)
+			},
+			removeLifestyle(item) {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenLifestyles = this.chosenLifestyles.filter(
+					(ele) => ele !== item
+				)
+			},
+			removeTime() {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenTimes = 0;
+			},
+			removeCalories() {
+				// console.log(this.chosenIngredientsMinus + " and " + item);
+			this.chosenCalories = 0;
 			},
 			addPlusIngredient(val) {
 				if (this.plusIngredient) {
@@ -902,12 +1136,19 @@
 					actions: [{ icon: "close", color: "white" }],
 				});
 			},
+		
 		},
 	};
 </script>
 
 <style lang="scss" scoped>
-	::v-deep div.flex-center {
-		justify-content: flex-start;
+	// ::v-deep div.flex-center {
+	// 	justify-content: flex-start;
+	// }
+	close-btn {
+		background: $negative;
+		color: white;
+		width: 100%
 	}
+
 </style>

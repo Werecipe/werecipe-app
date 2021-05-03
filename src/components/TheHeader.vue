@@ -22,7 +22,7 @@
 					label="Log in"
 				/>
 				<q-route-tab
-					v-if="$route.path !== '/sign-up'"
+					v-if="$route.path !== '/sign-up' "
 					to="/sign-up"
 					label="Sign Up"
 				/>
