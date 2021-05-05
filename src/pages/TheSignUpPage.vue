@@ -7,10 +7,10 @@
 			<q-form
 				@submit="onSubmit"
 				@reset="onReset"
-				class="full-width row wrap justify-start items-start content-center"
+				class="full-width row wrap justify-start items-start content-center "
 				autocomplete="off"
 			>
-				<div class="col-xs-12 col-md-3 q-gutter-y-sm overflow-auto">
+				<div class="col-xs-12 col-sm-6 col-md-3 q-gutter-y-sm overflow-auto q-mb-md">
 					<q-input
 						outlined
 						v-model="email"
@@ -132,7 +132,7 @@
 						label="Gender"
 					/>
 				</div>
-				<div class="col-sm-12 col-md-8 offset-md-1 q-gutter-sm">
+				<div class="col-sm-12 col-md-8 offset-md-1 q-gutter-sm q-mb-md">
 					<div class="col-sm-12">
 						<p class="georgeBold text-h6 text-black">Cuisine interests:</p>
 						<div>
