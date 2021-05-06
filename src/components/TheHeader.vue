@@ -1,7 +1,6 @@
 <template>
 	<q-header class="bg-white q-py-lx q-px-md">
-		<q-toolbar class="bg-white text-secondary q-my-md"
-		:brakepoint="1024">
+		<q-toolbar class="bg-white text-secondary q-my-md" :brakepoint="1024">
 			<!-- <q-btn flat round dense icon="menu" class="q-mr-sm" /> -->
 
 			<img src="../assets/werecipe-logo.png" alt="" width="140px" />
@@ -11,26 +10,18 @@
 				align="right"
 				dense
 				shrink
+				inline-label
 				size="xs"
 				class="georgeBold q-mr-xs"
-				active-color="white"
-				active-bg-color="secondary"
-				indicator-color="secondary"
 				:brakepoint="1024"
 			>
-				<q-route-tab to="/" label="Main" />
-				<q-route-tab
-					
-					to="/login"
-					label="Log in"
-				/>
-				<q-route-tab
-
-					to="/sign-up"
-					label="Sign Up"
-				/>
-				<q-route-tab to="/dashboard" label="Home" />
-				<q-route-tab to="recipeSearch" label="Search" />
+				<q-route-tab icon="home" to="/" label="Main" />
+				<q-route-tab icon="login" to="/login" label="Log in" />
+				<q-route-tab icon="person_add" to="/sign-up" label="Sign Up" />
+			</q-tabs>
+			<q-tabs dense shrink inline-label size="xs" class="georgeBold q-mr-xs">
+				<q-route-tab icon="search" to="/recipeSearch" label="Search" />
+				<q-btn flat icon="logout" @click="logout" label="Logout" />
 			</q-tabs>
 
 			<q-btn dense flat round icon="person" @click="open" />

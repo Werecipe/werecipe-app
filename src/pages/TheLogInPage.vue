@@ -72,12 +72,13 @@
 		},
 		methods: {
 			onSubmit() {
-				this.$q.notify({
-					color: "negative",
-					textColor: "white",
-					icon: "error",
-					message: "Wrong email or password, please try again",
-				});
+				// this.$q.notify({
+				// 	color: "negative",
+				// 	textColor: "white",
+				// 	icon: "error",
+				// 	message: "Wrong email or password, please try again",
+				// });
+				this.$router.push("/recipeSearch");
 			},
 
 			onReset() {
