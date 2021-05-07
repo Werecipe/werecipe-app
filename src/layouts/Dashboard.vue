@@ -3,7 +3,7 @@
 		<q-layout view="hHh lpR fFf">
 			<the-header v-on:open="openRight"></the-header>
 			<q-drawer absolute v-model="right" side="right">
-				<the-user-panel></the-user-panel>
+				<the-user-panel v-on:open="openRight"></the-user-panel>
 			</q-drawer>
 
 			<q-page-container>

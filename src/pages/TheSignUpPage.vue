@@ -7,10 +7,12 @@
 			<q-form
 				@submit="onSubmit"
 				@reset="onReset"
-				class="full-width row wrap justify-start items-start content-center "
+				class="full-width row wrap justify-start items-start content-center"
 				autocomplete="off"
 			>
-				<div class="col-xs-12 col-sm-6 col-md-3 q-gutter-y-sm overflow-auto q-mb-md">
+				<div
+					class="col-xs-12 col-sm-6 col-md-3 q-gutter-y-sm overflow-auto q-mb-md"
+				>
 					<q-input
 						outlined
 						v-model="email"
@@ -249,6 +251,7 @@
 </template>
 
 <script>
+	import { mapActions } from "vuex";
 	export default {
 		name: "SignUp",
 		data() {
@@ -598,21 +601,37 @@
 				],
 			};
 		},
-		computed: {},
+		computed: {
+			userPayload() {
+				let user = {
+					email: this.email,
+					username: this.username,
+					name: this.name,
+					surname: this.surname,
+					gender: this.gender,
+					age: this.age,
+					chosenCuisines: this.chosenCuisines,
+					chosenDiets: this.chosenDiets,
+					chosenLifestyles: this.chosenLifestyles,
+					chosenHealths: this.chosenHealths,
+					chosenTimes: this.chosenTimes,
+				};
+				return user;
+			},
+		},
 
 		methods: {
+
+			...mapActions("auth", ["registerUser"]),
+
 			addToArray(item) {
 				console.log(item);
 				this.chosenCuisines.push(item);
 			},
 
 			onSubmit() {
-				this.$q.notify({
-					color: "negative",
-					textColor: "white",
-					icon: "error",
-					message: "Wrong email or password, please try again",
-				});
+				this.registerUser({ data: this.userPayload, pass: this.password });
+
 			},
 
 			onReset() {

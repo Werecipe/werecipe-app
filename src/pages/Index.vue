@@ -14,7 +14,8 @@
 		</h2>
 		<p class="petrona text-h5">The complete food and recipe app</p>
 		<p class="petrona text-h5">
-			To save your recipes, access recipes from all over the world please
+			To save your recipes, and access your dedicated recipe search engine
+			<br />
 			<router-link to="./login" class="underline cursor-pointer"
 				>Log-in</router-link
 			>

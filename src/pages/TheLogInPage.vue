@@ -61,6 +61,7 @@
 
 
 <script>
+	import { mapActions } from "vuex";
 	export default {
 		name: "Login",
 		data() {
@@ -71,14 +72,11 @@
 			};
 		},
 		methods: {
+			...mapActions("auth", ["loginUser"]),
+
 			onSubmit() {
-				// this.$q.notify({
-				// 	color: "negative",
-				// 	textColor: "white",
-				// 	icon: "error",
-				// 	message: "Wrong email or password, please try again",
-				// });
-				this.$router.push("/recipeSearch");
+				this.loginUser({ email: this.email, pass: this.password });
+				// this.$router.push("/recipeSearch");
 			},
 
 			onReset() {

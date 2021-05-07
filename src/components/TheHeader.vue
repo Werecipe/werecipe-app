@@ -7,6 +7,7 @@
 
 			<q-space />
 			<q-tabs
+				v-if="!userDetail.userId"
 				align="right"
 				dense
 				shrink
@@ -19,17 +20,32 @@
 				<q-route-tab icon="login" to="/login" label="Log in" />
 				<q-route-tab icon="person_add" to="/sign-up" label="Sign Up" />
 			</q-tabs>
-			<q-tabs dense shrink inline-label size="xs" class="georgeBold q-mr-xs">
+			<q-tabs
+				v-else
+				dense
+				shrink
+				inline-label
+				size="xs"
+				class="georgeBold q-mr-xs"
+			>
 				<q-route-tab icon="search" to="/recipeSearch" label="Search" />
-				<q-btn flat icon="logout" @click="logout" label="Logout" />
+				<!-- <q-btn flat icon="logout" @click="logout" label="Logout" /> -->
 			</q-tabs>
 
-			<q-btn dense flat round icon="person" @click="open" />
+			<q-btn
+				v-if="userDetail.userId"
+				dense
+				flat
+				round
+				icon="person"
+				@click="open"
+			/>
 		</q-toolbar>
 	</q-header>
 </template>
 
 <script>
+	import { mapState } from "vuex";
 	export default {
 		components: {},
 		data() {
@@ -37,9 +53,15 @@
 				model: "one",
 			};
 		},
+		computed: {
+			...mapState("auth", ["userDetail"]),
+		},
 		methods: {
 			open() {
 				this.$emit("open");
+			},
+			logout() {
+				this.$router.push("/");
 			},
 		},
 	};

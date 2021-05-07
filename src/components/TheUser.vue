@@ -1,5 +1,5 @@
 <template>
-	<div :width="200" :breakpoint="767">
+	<div :width="200" :breakpoint="767" @click="open">
 		<q-img
 			class=""
 			src="https://cdn.quasar.dev/img/material.png"
@@ -9,8 +9,12 @@
 				<q-avatar size="56px" class="q-mb-sm">
 					<img src="https://cdn.quasar.dev/img/boy-avatar.png" />
 				</q-avatar>
-				<div class="text-weight-bold">Anonymous Prime</div>
-				<div>Anonymous</div>
+				<div class="text-weight-bold">
+					<span>{{ userDetail.username }}</span>
+				</div>
+				<div>
+					<span>{{ userDetail.email }}</span>
+				</div>
 			</div>
 		</q-img>
 		<q-scroll-area style="height: 250px">
@@ -39,7 +43,7 @@
 					<q-item-section> Send </q-item-section>
 				</q-item>
 
-				<q-item clickable v-ripple to="/">
+				<q-item clickable v-ripple to="/" @click="logout">
 					<q-item-section avatar>
 						<q-icon name="logout" />
 					</q-item-section>
@@ -52,8 +56,26 @@
 </template>
 
 <script>
+	import { mapActions, mapState } from "vuex";
 	export default {
 		name: "userPanel",
+
+		computed: {
+			...mapState("auth", ["userDetail"]),
+		},
+
+		methods: {
+			...mapActions("auth", ["logoutUser"]),
+
+			logout() {
+				this.logoutUser();
+			},
+
+			open() {
+				console.log("opened");
+				this.$emit("open");
+			},
+		},
 	};
 </script>
 
