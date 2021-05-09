@@ -13,18 +13,32 @@ const routes = [
       },
       {
         path: '/sign-up', component: () => import('pages/TheSignUpPage')
+      },      
+      {
+        path: '/requestLogin', component: () => import('pages/TheRequestLoginPage')
       }       
     ]
   },
   {
     path: '/dashboard',
     component: () => import('layouts/Dashboard.vue'),
+     meta: {
+          requiresAuth: true,
+        },
     children: [
       {
         path: '/recipeSearch', component: () => import('pages/Recipe-search.vue'),
+         meta: {
+          requiresAuth: true,
+      
+        }
       },
       {
         path: '/myRecipes', component: () => import('pages/MyRecipesPage.vue'),
+        meta: {
+          requiresAuth: true,
+         
+        }
       },
       
     ]

@@ -1,39 +1,45 @@
-import { db, auth, } from "boot/firebase";
+import { db, FBauth, } from "boot/firebase";
 import { Notify } from "quasar";
 import Router from "../../router/index";
 
+
 const state = {
-  userDetail : {}
+  userDetail: {},
+  userLoggedIn: false,
 
 }
 const mutations = {
   setUserDetails(state, payload) {
     state.userDetail = payload;
+  },
+  setUserLogStatus(state, payload) {
+    state.userLoggedIn = payload;
+    console.log("store user status changed ", payload);
   }
 
 }
 const actions = {
-  registerUser({ }, { data, pass }) {
-    console.log("this is the data", data, pass)
+  registerUser({}, { data, pass }) {
+    // console.log("this is the data", data, pass)
 
-    auth.createUserWithEmailAndPassword(data.email, pass)
+    FBauth.createUserWithEmailAndPassword(data.email, pass)
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user.uid)
-    db.collection("Users").doc(user.uid).set(data)
+      db.collection("Users").doc(user.uid).set(data)
+      
     // ...
   })
   .then((response) => {
-    console.log(response)
+    // console.log(response)
   })
   .catch((error) => {
-    console.log(error.code, error.message)
+    // console.log(error.code, error.message)
   })
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
-    console.log(errorCode, errorMessage)
+    // console.log(errorCode, errorMessage)
     // ..
   });
   },
@@ -42,13 +48,17 @@ const actions = {
 
   loginUser({ }, { email, pass }) {
     let user;
-    auth.signInWithEmailAndPassword(email, pass)
+    FBauth.signInWithEmailAndPassword(email, pass)
   .then((userCredential) => {
     // Signed in
+
+    
     user = userCredential.user;
     // ...
   }).then(() => {
-      this.$router.push("/recipeSearch")
+    // commit("setUserLogStatus", true);
+    // console.log("commit in login user", true);
+      // this.$router.push('/recipeSearch')
   })
   .catch((error) => {
     var errorCode = error.code;
@@ -64,31 +74,36 @@ const actions = {
 
   handleAuthStateChange({ commit }) {
     let userData = {};
-    auth.onAuthStateChanged(user => {
+    FBauth.onAuthStateChanged(user => {
       if (user) {
-        const user = auth.currentUser.uid;
+        const user = FBauth.currentUser.uid;
+        commit("setUserLogStatus", true);
+        console.log("store user status fired ", true);
         db.collection("Users").doc(user).onSnapshot(snapshot => {
-                if (snapshot) {
-                  userData = snapshot.data();
-                  console.log(userData);
-                  commit("setUserDetails", {
-                    ...userData,
-                    userId : user
+          if (snapshot) {
+            userData = snapshot.data();
+            commit("setUserDetails", {
+              ...userData,
+              userId: user
 
-                  })
-                }; 
-              });
+            });
+            this.$router.push('/recipeSearch')
+          };
+        });
 
       } else {
-        commit("setUserDetails", { })
+        commit("setUserDetails", {});
+        commit("setUserLogStatus", false);
+        console.log("store user status fired ", false);
+        this.$router.replace("/")
+
       }
     });
   },
 
   logoutUser() {
-    auth.signOut();
-
-  }
+    FBauth.signOut();
+  },
 
 
 }

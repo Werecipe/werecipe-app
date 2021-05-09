@@ -1,5 +1,5 @@
 <template>
-	<div :width="200" :breakpoint="767" @click="open">
+	<div :width="200" :breakpoint="767" @click="open()">
 		<q-img
 			class=""
 			src="https://cdn.quasar.dev/img/material.png"
@@ -43,7 +43,7 @@
 					<q-item-section> Send </q-item-section>
 				</q-item>
 
-				<q-item clickable v-ripple to="/" @click="logout">
+				<q-item clickable v-ripple @click="logout()">
 					<q-item-section avatar>
 						<q-icon name="logout" />
 					</q-item-section>
@@ -72,7 +72,6 @@
 			},
 
 			open() {
-				console.log("opened");
 				this.$emit("open");
 			},
 		},

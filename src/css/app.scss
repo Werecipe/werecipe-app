@@ -50,6 +50,10 @@
 .underline {
   text-decoration: underline;
   color: $primary;
+  transition: 0.3s;
+}
+.underline:hover {
+  text-decoration: none;
 }
 .width-30 {
   width: 30%;

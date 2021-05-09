@@ -23,11 +23,11 @@ import "firebase/firestore";
   // Initialize Firebase
   let firebaseApp = firebase.initializeApp(firebaseConfig);
 let firebaseAnalytics = firebase.analytics();
-let auth = firebaseApp.auth();
+let FBauth = firebaseApp.auth();
 let db = firebaseApp.firestore();
 
 export {
-  auth, db
+  FBauth, db
 }
 
 
