@@ -42,13 +42,13 @@ export default function ({ store, /*ssrContext  */ }) {
   // })
 
   Router.beforeEach((to, from, next) => {
-    console.log("navigation guard fired" )
+    // console.log("navigation guard fired" )
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        console.log("the path requires authentication")
+        // console.log("the path requires authentication")
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!logUserStatus()) {
-      console.log("navigation guard value", !logUserStatus())
+      // console.log("navigation guard value", !logUserStatus())
    
       next({
         path: '/requestLogin',
@@ -62,17 +62,6 @@ export default function ({ store, /*ssrContext  */ }) {
   }
 })
  
-
-//   Router.beforeEach((to,from, next) => {
-//   to.matched.some( route =>{
-//     if(route.meta.requiresAuth){
-//       if(logUserStatus){
-//         next({ path: '/requestLogin' })
-//       }
-//     }
-//     next()
-//   })
-// })
 
   
 

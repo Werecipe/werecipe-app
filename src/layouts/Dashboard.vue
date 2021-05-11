@@ -10,13 +10,15 @@
 				<router-view />
 			</q-page-container>
 
-			<q-footer class="bg-black text-white">
+			<q-footer class="bg-black text-white text-center">
 				<q-toolbar>
 					<q-toolbar-title>
-						<q-avatar>
-							<img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
-						</q-avatar>
-						Title
+						<a
+							class="petrona footer-link"
+							href="mailto:contactwerecipe@gmail.com"
+						>
+							contactwerecipe@gmail.com</a
+						>
 					</q-toolbar-title>
 				</q-toolbar>
 			</q-footer>
@@ -44,3 +46,17 @@
 		},
 	};
 </script>
+<style  lang="scss" scoped>
+	.footer-link:link,
+	.footer-link:visited {
+		color: white;
+		text-decoration: none;
+		font-size: 14px;
+		transition: 0.3s;
+		border-bottom: 1px solid;
+		border-color: $primary;
+	}
+	.footer-link:hover {
+		border-color: transparent;
+	}
+</style>

@@ -14,7 +14,7 @@ const mutations = {
   },
   setUserLogStatus(state, payload) {
     state.userLoggedIn = payload;
-    console.log("store user status changed ", payload);
+    // console.log("store user status changed ", payload);
   }
 
 }
@@ -34,12 +34,12 @@ const actions = {
     // console.log(response)
   })
   .catch((error) => {
-    // console.log(error.code, error.message)
+    Notify.create(error.message);
   })
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
-    // console.log(errorCode, errorMessage)
+    Notify.create(errorMessage);
     // ..
   });
   },
@@ -78,7 +78,7 @@ const actions = {
       if (user) {
         const user = FBauth.currentUser.uid;
         commit("setUserLogStatus", true);
-        console.log("store user status fired ", true);
+        // console.log("store user status fired ", true);
         db.collection("Users").doc(user).onSnapshot(snapshot => {
           if (snapshot) {
             userData = snapshot.data();
@@ -94,7 +94,7 @@ const actions = {
       } else {
         commit("setUserDetails", {});
         commit("setUserLogStatus", false);
-        console.log("store user status fired ", false);
+        // console.log("store user status fired ", false);
         this.$router.replace("/")
 
       }
