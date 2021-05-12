@@ -274,6 +274,7 @@
 				accept: false,
 
 				optionsGender: ["Female", "Male", "Other"],
+
 				cuisines: [
 					{
 						label: "American",
@@ -296,8 +297,8 @@
 						selected: false,
 					},
 					{
-						label: "Central-European",
-						value: "Central-European",
+						label: "Central European",
+						value: "Central European",
 						selected: false,
 					},
 					{
@@ -306,8 +307,8 @@
 						selected: false,
 					},
 					{
-						label: "Eastern-European",
-						value: "Eastern-European",
+						label: "Eastern European",
+						value: "Eastern European",
 						selected: false,
 					},
 					{
@@ -346,8 +347,8 @@
 						selected: false,
 					},
 					{
-						label: "Middle-Eastern",
-						value: "Middle-Eastern",
+						label: "Middle Eastern",
+						value: "Middle Eastern",
 						selected: false,
 					},
 					{
@@ -356,13 +357,13 @@
 						selected: false,
 					},
 					{
-						label: "South-American",
-						value: "South-American",
+						label: "South American",
+						value: "South American",
 						selected: false,
 					},
 					{
-						label: "Vietnamese",
-						value: "Vietnamese",
+						label: "South East Asian",
+						value: "South East Asian",
 						selected: false,
 					},
 				],
@@ -370,11 +371,6 @@
 					{
 						label: "Balanced",
 						value: "balanced",
-						selected: false,
-					},
-					{
-						label: "High-fiber",
-						value: "high-fiber",
 						selected: false,
 					},
 					{
@@ -390,11 +386,6 @@
 					{
 						label: "Low-fat",
 						value: "low-fat",
-						selected: false,
-					},
-					{
-						label: "Low-sodium",
-						value: "low-sodium",
 						selected: false,
 					},
 				],
@@ -430,11 +421,6 @@
 						selected: false,
 					},
 					{
-						label: "Pescatarian",
-						value: "pecatarian",
-						selected: false,
-					},
-					{
 						label: "Keto",
 						value: "keto-friendly",
 						selected: false,
@@ -456,11 +442,7 @@
 						value: "tree-nut-free",
 						selected: false,
 					},
-					{
-						label: "Crustacean-free",
-						value: "crustacean-free",
-						selected: false,
-					},
+
 					{
 						label: "Shellfish-free",
 						value: "shellfish-free",
@@ -529,16 +511,6 @@
 					{
 						label: "Soy free",
 						value: "soy-free",
-						selected: false,
-					},
-					{
-						label: "No oil added",
-						value: "No-oil-added",
-						selected: false,
-					},
-					{
-						label: "Extreme low fat",
-						value: "low-fat-abs",
 						selected: false,
 					},
 					{
@@ -621,7 +593,6 @@
 		},
 
 		methods: {
-
 			...mapActions("auth", ["registerUser"]),
 
 			addToArray(item) {
@@ -631,7 +602,6 @@
 
 			onSubmit() {
 				this.registerUser({ data: this.userPayload, pass: this.password });
-
 			},
 
 			onReset() {

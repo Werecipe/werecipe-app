@@ -3,7 +3,7 @@
 		<div
 			class="full-width column justify-center items-center content-center petrona"
 		>
-			<h1 class="text-h4 text-center georgeItalic">
+			<h1 class="text-h3 text-center georgeItalic">
 				Your dedicated recipe search
 			</h1>
 			<q-input

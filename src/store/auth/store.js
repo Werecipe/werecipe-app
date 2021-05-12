@@ -118,15 +118,15 @@ const actions = {
     const user = FBauth.currentUser.uid;
     db.collection("Users").doc(user).collection("savedRecipes").doc().set(payload)
     .then(() => {
-    console.log("Document successfully written!");
+    Notify.create("Recipe saved successfully")
     })
     .catch((error) => {
-    console.error("Error writing document: ", error);
+    Notify.create("Error writing document: ", error.message);
     })
 
   },
   getRecipeFromDb({commit }) {
-    console.log("store recipe fired")
+    // console.log("store recipe fired")
     const user = FBauth.currentUser.uid;
     let recipeList = [];
     db.collection('Users').doc(user).collection("savedRecipes").onSnapshot(snapshot => {
@@ -136,7 +136,6 @@ const actions = {
           recipeList.push(recipe);
         });
         commit("addRecipeList", recipeList);
-        console.log("bd recipe  list", recipeList)
       }
     })
   },
