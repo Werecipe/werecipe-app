@@ -39,25 +39,7 @@
 
 			<p class="q-mb-none q-pb-none petrona text-primary">
 				Your filter parameters:
-				<!-- <span v-show="chosenIngredientsPlus">
-						<span v-for="item in chosenIngredientsPlus"
-														:key="item" @click="removePlus(item)"
-														class="cursor-pointer"> 
-							<q-chip
-														removable
-														dense
-														size="12px"
-														@remove="removePlus(item)"
-														color="transparent"
-														text-color="primary"
-														class="q-px-xs"
-													
 
-													>
-
-														<q-icon name="add" size="12px"></q-icon>{{ item }}
-													
-													</q-chip></span></span> -->
 				<span v-show="chosenIngredientsMinus">
 					<span
 						v-for="item in chosenIngredientsMinus"
@@ -220,6 +202,14 @@
 					</span>
 				</span>
 			</p>
+			<q-space />
+
+			<!-- <p
+				v-if="recipesCount"
+				class="q-mb-none q-pb-none petrona text-primary text-right q-mr-md"
+			>
+				result: {{ recipes.count }}
+			</p> -->
 		</div>
 		<q-slide-transition>
 			<div v-show="filter">
@@ -257,14 +247,14 @@
 
 							<q-tab name="energy" icon="bolt" label="Energy" no-caps />
 							<q-tab
-								name="close"
-								icon="close"
-								color="negative"
-								content-class="close-btn"
-								padding="0.5rem 1rem"
 								no-caps
-								@click="filter = !filter"
-							/>
+								@click="
+									search();
+									filter = !filter;
+								"
+								><div class="close-btn">
+									<q-icon name="close" color="white"></q-icon></div
+							></q-tab>
 						</q-tabs>
 					</template>
 
@@ -478,7 +468,8 @@
 				</q-splitter>
 			</div>
 		</q-slide-transition>
-		<div class="q-pa-md row items-start q-gutter-sm">
+
+		<div class="q-pa-md row items-center justify-center q-gutter-sm">
 			<recipe-card
 				v-for="el in recipes.hits"
 				:key="el.index"
@@ -515,6 +506,8 @@
 				chosenCalories: 0,
 				// allChoises:[],
 				displaychoises: [],
+				to: 100,
+				from: 0,
 				cuisines: [
 					{
 						label: "American",
@@ -1035,12 +1028,15 @@
 				);
 				return excludedVal;
 			},
+			recipesCount() {
+				return this.recipes.count;
+			},
 		},
 
 		methods: {
 			async search() {
 				let responseApi = await fetch(
-					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&q=${this.recipeName}&to=50${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
+					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
 				);
 				let data = await responseApi.json();
 				console.log(data);
@@ -1157,13 +1153,12 @@
 	// ::v-deep div.flex-center {
 	// 	justify-content: flex-start;
 	// }
-	close-btn {
-		background: $negative;
-		color: white;
+	.close-btn {
+		background: $positive;
+		position: relative;
+		left: -10px;
+		min-width: 100px;
 		width: 100%;
-	}
-	.my-card {
-		width: 100%;
-		max-width: 300px;
+		height: 100%;
 	}
 </style>

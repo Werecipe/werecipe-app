@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './auth/store'
+// import user from './user/recipes'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
     modules: {
       namespaced: true,
  
-      auth
+      auth,
+      
     },
 
     // enable strict mode (adds overhead!)

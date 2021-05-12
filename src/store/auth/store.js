@@ -6,6 +6,7 @@ import Router from "../../router/index";
 const state = {
   userDetail: {},
   userLoggedIn: false,
+  userSavedRecipes: [],
 
 }
 const mutations = {
@@ -15,6 +16,10 @@ const mutations = {
   setUserLogStatus(state, payload) {
     state.userLoggedIn = payload;
     // console.log("store user status changed ", payload);
+  },
+  addRecipeList(state, payload) {
+    state.userSavedRecipes = payload;
+
   }
 
 }
@@ -103,6 +108,37 @@ const actions = {
 
   logoutUser() {
     FBauth.signOut();
+  },
+
+  // --------recipe control ------------
+
+  setRecipes({ }, payload) {
+
+    
+    const user = FBauth.currentUser.uid;
+    db.collection("Users").doc(user).collection("savedRecipes").doc().set(payload)
+    .then(() => {
+    console.log("Document successfully written!");
+    })
+    .catch((error) => {
+    console.error("Error writing document: ", error);
+    })
+
+  },
+  getRecipeFromDb({commit }) {
+    console.log("store recipe fired")
+    const user = FBauth.currentUser.uid;
+    let recipeList = [];
+    db.collection('Users').doc(user).collection("savedRecipes").onSnapshot(snapshot => {
+      if (snapshot) {
+        snapshot.forEach((doc) => {
+          let recipe = doc.data();
+          recipeList.push(recipe);
+        });
+        commit("addRecipeList", recipeList);
+        console.log("bd recipe  list", recipeList)
+      }
+    })
   },
 
 

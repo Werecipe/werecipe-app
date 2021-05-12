@@ -11,8 +11,8 @@
 			</q-page-container>
 
 			<q-footer class="bg-black text-white text-center">
-				<q-toolbar>
-					<q-toolbar-title>
+				<q-toolbar class="row column justify-center align-center">
+					<q-toolbar-title class="q-my-md">
 						<a
 							class="petrona footer-link"
 							href="mailto:contactwerecipe@gmail.com"
@@ -20,6 +20,9 @@
 							contactwerecipe@gmail.com</a
 						>
 					</q-toolbar-title>
+					<div>
+						<img src="../assets/edamam.png" alt="edamam attribution logo" />
+					</div>
 				</q-toolbar>
 			</q-footer>
 		</q-layout>

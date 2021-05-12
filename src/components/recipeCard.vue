@@ -2,23 +2,31 @@
 	<q-card class="my-card relative petrona" flat bordered>
 		<q-img :src="recipe.image" />
 		<div class="text-overline text-secondary row absolute-top">
-			<div class="col-4 offset-7">
-				<q-chip class="q-px-sm">
-					<q-avatar icon="restaurant" color="secondary" text-color="white" />
-					{{ recipe.yield }}
-				</q-chip>
-			</div>
-			<div class="col-4 offset-7">
-				<q-chip class="q-px-sm">
-					<q-avatar icon="access_time" color="secondary" text-color="white" />
-					{{ recipe.totalTime }}min
-				</q-chip>
-			</div>
+			<q-chip class="q-px-sm q-mr-sm">
+				<q-avatar icon="restaurant" color="secondary" text-color="white" />
+				{{ recipe.yield }}
+			</q-chip>
+
+			<q-chip class="q-px-sm">
+				<q-avatar icon="access_time" color="secondary" text-color="white" />
+				{{ recipe.totalTime }}min
+			</q-chip>
 		</div>
 
 		<q-card-section class="row height-150">
-			<div class="text-overline text-secondary col-12">
+			<div class="text-overline text-secondary col-12 row justify-between">
 				Source: {{ recipe.source }}
+
+				<div v-if="recipeSearch">
+					<q-btn
+						color="positive"
+						icon="save"
+						label="Save"
+						dense
+						size="sm"
+						@click="saveRecipe(recipe)"
+					/>
+				</div>
 			</div>
 
 			<div class="text-h6 text-primary col-12 georgeItalic">
@@ -86,6 +94,7 @@
 </template>
 
 <script>
+	import { mapActions } from "vuex";
 	export default {
 		name: "Card",
 		props: {
@@ -98,10 +107,25 @@
 				expanded: false,
 			};
 		},
+		computed: {
+			recipeSearch() {
+				return this.$router.currentRoute.path == "/recipeSearch";
+			},
+		},
+
+		methods: {
+			...mapActions("auth", ["setRecipes"]),
+
+			saveRecipe(el) {
+				let rcp = el;
+				this.setRecipes(rcp);
+			},
+		},
+		mounted() {},
 	};
 </script>
 
-<style>
+<style lang="scss" scoped>
 	a {
 		text-decoration: none;
 	}
@@ -112,5 +136,9 @@
 	.height-200 {
 		max-height: 350px;
 		overflow-y: scroll;
+	}
+	.my-card {
+		width: 100%;
+		max-width: 300px;
 	}
 </style>
