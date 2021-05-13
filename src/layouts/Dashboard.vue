@@ -2,17 +2,17 @@
 	<div>
 		<q-layout view="hHh lpR fFf">
 			<the-header v-on:open="openRight"></the-header>
-			<q-drawer absolute v-model="right" side="right">
+			<q-drawer class="absolute z-top" v-model="right" side="right">
 				<the-user-panel v-on:open="openRight"></the-user-panel>
 			</q-drawer>
 
-			<q-page-container>
+			<q-page-container class="window-height">
 				<router-view />
 			</q-page-container>
 
-			<q-footer class="bg-black text-white text-center">
-				<q-toolbar class="row column justify-center align-center">
-					<q-toolbar-title class="q-my-md">
+			<q-footer reveal class="bg-black text-white text-center">
+				<q-toolbar class="row justify-center align-center">
+					<q-toolbar-title class="q-my-xs">
 						<a
 							class="petrona footer-link"
 							href="mailto:contactwerecipe@gmail.com"
@@ -20,9 +20,8 @@
 							contactwerecipe@gmail.com</a
 						>
 					</q-toolbar-title>
-					<div>
-						<img src="../assets/edamam.png" alt="edamam attribution logo" />
-					</div>
+					<div class="absolute-bottom-right q-mb-xs q-mr-xs">	<q-img basic contain width="100px" src="../assets/edamam.png" alt="edamam attribution logo" /></div>
+					
 				</q-toolbar>
 			</q-footer>
 		</q-layout>
