@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 import auth from "../store/auth/store"
 
 import routes from './routes'
-import Notify from 'Quasar'
 
 Vue.use(VueRouter);
 
@@ -21,7 +20,7 @@ Vue.use(VueRouter);
     return userStats
 };
 
-export default function ({ store, /*ssrContext  */ }) {
+export default function ({ /*store, ssrContext  */ }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
