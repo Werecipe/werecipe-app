@@ -56,8 +56,6 @@ const actions = {
     FBauth.signInWithEmailAndPassword(email, pass)
   .then((userCredential) => {
     // Signed in
-
-    
     user = userCredential.user;
     // ...
   }).then(() => {
@@ -92,7 +90,7 @@ const actions = {
               userId: user
 
             });
-            this.$router.push('/recipeSearch')
+            this.$router.replace('/recipeSearch')
           };
         });
 
