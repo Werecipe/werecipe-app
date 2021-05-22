@@ -1039,7 +1039,6 @@
 					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
 				);
 				let data = await responseApi.json();
-				console.log(data);
 				this.recipes = data;
 			},
 

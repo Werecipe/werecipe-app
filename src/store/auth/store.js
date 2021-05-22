@@ -25,18 +25,14 @@ const mutations = {
 }
 const actions = {
   registerUser({}, { data, pass }) {
-    // console.log("this is the data", data, pass)
 
     FBauth.createUserWithEmailAndPassword(data.email, pass)
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
       db.collection("Users").doc(user.uid).set(data)
-      
-    // ...
   })
   .then((response) => {
-    // console.log(response)
   })
   .catch((error) => {
     Notify.create(error.message);
@@ -45,7 +41,6 @@ const actions = {
     var errorCode = error.code;
     var errorMessage = error.message;
     Notify.create(errorMessage);
-    // ..
   });
   },
 
@@ -72,7 +67,6 @@ const actions = {
 
   });   
   },
-
 
 
   handleAuthStateChange({ commit }) {
@@ -112,7 +106,6 @@ const actions = {
 
   setRecipes({ }, payload) {
 
-    
     const user = FBauth.currentUser.uid;
     db.collection("Users").doc(user).collection("savedRecipes").doc().set(payload)
     .then(() => {
@@ -121,8 +114,9 @@ const actions = {
     .catch((error) => {
     Notify.create("Error writing document: ", error.message);
     })
-
   },
+
+
   getRecipeFromDb({commit }) {
     // console.log("store recipe fired")
     const user = FBauth.currentUser.uid;

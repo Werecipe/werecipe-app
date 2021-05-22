@@ -30,17 +30,15 @@ const routes = [
         path: '/recipeSearch', component: () => import('pages/Recipe-search.vue'),
          meta: {
           requiresAuth: true,
-      
         }
       },
+
       {
         path: '/myRecipes', component: () => import('pages/MyRecipesPage.vue'),
         meta: {
           requiresAuth: true,
-         
         }
       },
-      
     ]
   },
 
