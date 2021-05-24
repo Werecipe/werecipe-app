@@ -1,20 +1,22 @@
 <template>
 	<div
-		class="q-pa-xl flex flex-center column login-style rounded-borders bg-white text-primary shadow-5"
+		class="q-pa-md q-mt-md flex flex-center column login-style rounded-borders bg-white text-dark"
 	>
 		<h1 class="text-h3 georgeItalic">Log in</h1>
 		<div class="q-gutter-y-xs flex column justify-center">
 			<q-form
 				@submit="onSubmit"
 				@reset="onReset"
-				class="q-gutter-xs q-pa-lg text-primary"
+				class="q-gutter-xs q-pa-xs text-white"
 			>
 				<q-input
+					color="info"
+					label-color="dark"
 					outlined
+					hide-bottom-space
 					v-model="email"
 					label="email"
 					type="email"
-					standout="dark bg-white"
 					dense
 					:rules="[
 						(val) =>
@@ -22,6 +24,8 @@
 					]"
 				/>
 				<q-input
+					color="info"
+					label-color="dark"
 					v-model="password"
 					dense
 					outlined
@@ -50,7 +54,7 @@
 				</div>
 			</q-form>
 			<p class="text-center text-h5">
-				Or
+				or
 				<router-link to="./sign-up" class="underline cursor-pointer"
 					>Sign-up</router-link
 				>
@@ -91,5 +95,8 @@
 	.login-style {
 		width: fit-content;
 		margin: 0 auto;
+	}
+	input {
+		color: white;
 	}
 </style>

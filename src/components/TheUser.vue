@@ -10,29 +10,28 @@
 					<img src="https://cdn.quasar.dev/img/boy-avatar.png" />
 				</q-avatar>
 				<div class="text-weight-bold">
-					<span>{{ userDetail.username }}</span>
+					<span>{{ userDetails.username }}</span>
 				</div>
 				<div>
-					<span>{{ userDetail.email }}</span>
+					<span>{{ userDetails.email }}</span>
 				</div>
 			</div>
 		</q-img>
 		<q-scroll-area style="height: 250px">
 			<q-list padding>
+				<q-item active clickable v-ripple to="/userAccount">
+					<q-item-section avatar>
+						<q-icon name="person" />
+					</q-item-section>
+
+					<q-item-section> Account </q-item-section>
+				</q-item>
 				<q-item clickable v-ripple to="/myRecipes">
 					<q-item-section avatar>
 						<q-icon name="menu_book" />
 					</q-item-section>
 
-					<q-item-section> recipes </q-item-section>
-				</q-item>
-
-				<q-item active clickable v-ripple>
-					<q-item-section avatar>
-						<q-icon name="star" />
-					</q-item-section>
-
-					<q-item-section> Star </q-item-section>
+					<q-item-section> Recipes </q-item-section>
 				</q-item>
 
 				<q-item clickable v-ripple>
@@ -61,7 +60,7 @@
 		name: "userPanel",
 
 		computed: {
-			...mapState("auth", ["userDetail"]),
+			...mapState("auth", ["userDetails"]),
 		},
 
 		methods: {

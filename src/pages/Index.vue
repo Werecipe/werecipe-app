@@ -2,29 +2,21 @@
 	<q-page
 		class="flex flex-start content-center items-center column text-center q-pt-xl"
 	>
-		<q-img
-			class="width-30 q-my-xl"
-			src="../assets/werecipe-logo.png"
-			alt="large app logo"
-		/>
-
-		<h1 class="GeorgeItalic text-h3 q-mb-xs">Welcome to Werecipe app</h1>
-		<h2 class="GeorgeBold text-h4 q-mt-none q-pt-xs">
+		<h1 class="GeorgeItalic text-h4 q-mb-xs">Werecipe app</h1>
+		<p class="GeorgeBold q-mt-none q-pt-xs text-uppercase">
 			Search. Save. Own. Cook. Share. Repeat.
-		</h2>
-		<p class="petrona text-h5">The complete food and recipe app</p>
-		<p class="petrona text-h5">
-			To save your recipes, and access your dedicated recipe search engine
-			<br />
-			<router-link to="./login" class="underline cursor-pointer"
-				>Log-in</router-link
-			>
-			or
-			<router-link to="./sign-up" class="underline cursor-pointer"
-				>Sign-up</router-link
-			>
-		</p></q-page
-	>
+		</p>
+		<p class="petrona text-h6">The complete food and recipe app</p>
+
+		<q-btn color="secondary" icon-right="login" label="Login" to="./login" />
+		<p class="petrona">OR</p>
+		<q-btn
+			color="info"
+			icon-right="person_add"
+			label="Create account"
+			to="./sign-up"
+		/>
+	</q-page>
 </template>
 
 <script>
@@ -32,3 +24,8 @@
 		name: "PageIndex",
 	};
 </script>
+<style scoped lang="scss">
+	p {
+		margin: 0.5rem;
+	}
+</style>

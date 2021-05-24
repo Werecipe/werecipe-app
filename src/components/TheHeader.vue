@@ -3,11 +3,13 @@
 		<q-toolbar class="bg-white text-secondary q-my-md" :brakepoint="1024">
 			<!-- <q-btn flat round dense icon="menu" class="q-mr-sm" /> -->
 
-			<img src="../assets/werecipe-logo.png" alt="" width="140px" />
+			<router-link to="/"
+				><img src="../assets/werecipe-logo.png" alt="" width="100px"
+			/></router-link>
 
 			<q-space />
 			<q-tabs
-				v-if="!userDetail.userId"
+				v-if="!userDetails.userId"
 				align="right"
 				dense
 				shrink
@@ -16,9 +18,24 @@
 				class="georgeBold q-mr-xs"
 				:brakepoint="1024"
 			>
-				<q-route-tab icon="home" to="/" label="Main" />
-				<q-route-tab icon="login" to="/login" label="Log in" />
-				<q-route-tab icon="person_add" to="/sign-up" label="Sign Up" />
+				<!-- <q-route-tab
+					v-if="$route.path !== '/'"
+					icon="home"
+					to="/"
+					label="Main"
+				/> -->
+				<q-route-tab
+					v-if="$route.path == '/sign-up'"
+					icon="login"
+					to="/login"
+					label="Log in"
+				/>
+				<q-route-tab
+					v-if="$route.path == '/login'"
+					icon="person_add"
+					to="/sign-up"
+					label="Sign Up"
+				/>
 			</q-tabs>
 			<q-tabs
 				v-else
@@ -33,10 +50,11 @@
 			</q-tabs>
 
 			<q-btn
-				v-if="userDetail.userId"
+				v-if="userDetails.userId"
 				dense
 				flat
 				round
+				color="info"
 				icon="person"
 				@click="open"
 			/>
@@ -54,14 +72,20 @@
 			};
 		},
 		computed: {
-			...mapState("auth", ["userDetail"]),
+			...mapState("auth", ["userDetails"]),
+
+			// routerPath() {
+			// 	let routePath = this.$route.fullPath;
+			// 	console.log(routePath);
+			// 	return routePath;
+			// },
 		},
 		methods: {
 			open() {
 				this.$emit("open");
 			},
 			logout() {
-				this.$router.push("/");
+				this.$router.replace("/");
 			},
 		},
 	};

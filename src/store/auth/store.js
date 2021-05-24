@@ -4,14 +4,14 @@ import Router from "../../router/index";
 
 
 const state = {
-  userDetail: {},
+  userDetails: {},
   userLoggedIn: false,
   userSavedRecipes: [],
 
 }
 const mutations = {
-  setUserDetails(state, payload) {
-    state.userDetail = payload;
+  setuserDetailss(state, payload) {
+    state.userDetails = payload;
   },
   setUserLogStatus(state, payload) {
     state.userLoggedIn = payload;
@@ -79,7 +79,7 @@ const actions = {
         db.collection("Users").doc(user).onSnapshot(snapshot => {
           if (snapshot) {
             userData = snapshot.data();
-            commit("setUserDetails", {
+            commit("setuserDetailss", {
               ...userData,
               userId: user
 
@@ -89,7 +89,7 @@ const actions = {
         });
 
       } else {
-        commit("setUserDetails", {});
+        commit("setuserDetailss", {});
         commit("setUserLogStatus", false);
         // console.log("store user status fired ", false);
         this.$router.replace("/")
@@ -100,6 +100,22 @@ const actions = {
 
   logoutUser() {
     FBauth.signOut();
+  },
+
+
+  updateUser({ state }, payload) {
+    let user = state.userDetails.userId;
+    console.log(user)
+    
+    db.collection("Users").doc(user).update(payload).then(() => {
+    Notify.create("Account successfully updated");
+})
+    .catch((error) => {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+
+
   },
 
   // --------recipe control ------------

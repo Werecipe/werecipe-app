@@ -1,17 +1,18 @@
 <template>
 	<div
-		class="q-px-md q-py-sm flex flex-center column rounded-borders bg-white text-primary"
+		class="q-px-md q-py-sm q-pt-md q-pb-xl flex flex-center column rounded-borders bg-white text-primary"
 	>
-		<h1 class="text-h3 q-px-lg georgeItalic">Sign Up</h1>
+		<h1 class="text-h5 q-px-lg georgeItalic text-center">
+			Your account information
+		</h1>
 		<div class="column wrap full-width q-pa-lg">
 			<q-form
 				@submit="onSubmit"
-				@reset="onReset"
-				class="full-width row wrap justify-center items-center content-center"
+				class="full-width row wrap justify-start items-start content-center"
 				autocomplete="off"
 			>
 				<div
-					class="col-xs-12 col-sm-6 col-md-3 q-gutter-y-sm overflow-auto q-mb-md"
+					class="col-xs-12 col-md-4 offset-md-4 q-gutter-y-sm overflow-auto q-mb-md"
 				>
 					<q-input
 						outlined
@@ -47,70 +48,140 @@
 								'please don\'t lease this field empty',
 						]"
 					/>
+
 					<q-input
-						v-model="password"
-						dense
 						outlined
-						require
-						hide-bottom-space
-						placeholder="password"
+						v-model="name"
+						label="name"
+						type="text"
+						standout="dark bg-white"
 						label-color="info"
-						:type="isPwd ? 'password' : 'text'"
-						:rules="[
-							(val) =>
-								val.length > 7 || 'password must be at last 8 characters long',
-						]"
-						hint="minimum 8 characters"
-					>
-						<template v-slot:append>
-							<q-icon
-								:name="isPwd ? 'visibility_off' : 'visibility'"
-								class="cursor-pointer"
-								@click="isPwd = !isPwd"
-							/>
-						</template>
-					</q-input>
+						dense
+						hide-bottom-space
+						placeholder="name"
+					/>
 					<q-input
-						v-model="passwordTwo"
-						dense
 						outlined
-						require
+						v-model="surname"
+						label="surname"
+						type="text"
+						standout="dark bg-white"
+						label-color="info"
+						dense
+						hide-bottom-space
+						placeholder="surname"
+					/>
+					<q-input
+						outlined
+						v-model="age"
+						label="age"
+						type="number"
+						standout="dark bg-white"
+						label-color="info"
+						dense
+						hide-bottom-space
+						placeholder="age"
+					/>
+					<q-select
+						outlined
+						dense
 						hide-bottom-space
 						label-color="info"
-						placeholder="repeat password"
-						:type="isPwdTwo ? 'password' : 'text'"
-						hint="Repeat password"
-						:rules="[(val) => val === password || 'Enter a matching password']"
-					>
-						<template v-slot:append>
-							<q-icon
-								:name="isPwdTwo ? 'visibility_off' : 'visibility'"
-								class="cursor-pointer"
-								@click="isPwdTwo = !isPwdTwo"
+						v-model="gender"
+						:options="optionsGender"
+						label="Gender"
+					/>
+				</div>
+				<div class="col-xs-12 col-md-4 offset-md-4 q-gutter-sm q-mb-md">
+					<div class="col-sm-12">
+						<p class="georgeBold text-h6 text-black">Cuisine interests:</p>
+						<div>
+							<q-option-group
+								name="cuisines"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
+								v-model="chosenCuisines"
+								:options="cuisines"
+								color="secondary"
+								type="toggle"
 							/>
-						</template>
-					</q-input>
-					<div>
-						<q-toggle
-							v-model="accept"
-							label="I accept the license and terms"
-							color="positive"
-							size="2.2rem"
-						/>
+						</div>
 					</div>
-					<q-btn
-						label="sign up"
-						type="submit"
-						color="secondary"
-						:disable="!accept"
-					/>
-					<q-btn
-						label="Reset"
-						type="reset"
-						color="warning"
-						flat
-						class="q-ml-sm"
-					/>
+					<div class="col-sm-12">
+						<p class="georgeBold text-h6 text-black">Diet interests:</p>
+						<div>
+							<q-option-group
+								name="diet"
+								keep-color
+								inline
+								dense
+								class="q-mr-md petrona text-1rem"
+								v-model="chosenDiets"
+								:options="diets"
+								color="secondary"
+								type="toggle"
+							/>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<p class="georgeBold text-h6 text-black">Lifestyle:</p>
+						<div>
+							<q-option-group
+								name="lifestyle"
+								keep-color
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
+								inline
+								v-model="chosenLifestyles"
+								:options="lifestyles"
+								color="secondary"
+								type="toggle"
+							/>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<p class="georgeBold text-h6 text-black">Health and allergy:</p>
+						<div>
+							<q-option-group
+								name="health"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
+								v-model="chosenHealths"
+								:options="healths"
+								color="secondary"
+								type="toggle"
+							/>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<p class="georgeBold text-h6 text-black">
+							Preferred maximum cook time:
+						</p>
+						<div>
+							<q-option-group
+								name="time"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem"
+								v-model="chosenTimes"
+								:options="times"
+								color="secondary"
+								type="toggle"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="q-my-lg col-xs-12 col-md-4 offset-md-4">
+					<q-btn label="Update account" type="submit" color="secondary" />
 				</div>
 			</q-form>
 		</div>
@@ -118,9 +189,9 @@
 </template>
 
 <script>
-	import { mapActions } from "vuex";
+	import { mapActions, mapState } from "vuex";
 	export default {
-		name: "SignUp",
+		name: "UserAccount",
 		data() {
 			return {
 				email: "",
@@ -441,9 +512,10 @@
 			};
 		},
 		computed: {
+			...mapState("auth", ["userDetails"]),
+
 			userPayload() {
 				let user = {
-					email: this.email,
 					username: this.username,
 					name: this.name,
 					surname: this.surname,
@@ -460,7 +532,7 @@
 		},
 
 		methods: {
-			...mapActions("auth", ["registerUser"]),
+			...mapActions("auth", ["updateUser"]),
 
 			addToArray(item) {
 				console.log(item);
@@ -468,7 +540,7 @@
 			},
 
 			onSubmit() {
-				this.registerUser({ data: this.userPayload, pass: this.password });
+				this.updateUser(this.userPayload);
 			},
 
 			onReset() {
@@ -481,6 +553,24 @@
 				this.gender = "";
 				this.age = "";
 			},
+
+			setUser() {
+				this.email = this.userDetails.email;
+				this.username = this.userDetails.username;
+				this.name = this.userDetails.name;
+				this.surname = this.userDetails.surname;
+				this.gender = this.userDetails.gender;
+				this.age = this.userDetails.age;
+				this.chosenCuisines = this.userDetails.chosenCuisines;
+				this.chosenDiets = this.userDetails.chosenDiets;
+				this.chosenLifestyles = this.userDetails.chosenLifestyles;
+				this.chosenHealths = this.userDetails.chosenHealths;
+				this.chosenTimes = this.userDetails.chosenTimes;
+			},
+		},
+
+		beforeMount() {
+			this.setUser();
 		},
 	};
 </script>

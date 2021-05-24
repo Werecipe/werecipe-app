@@ -39,6 +39,12 @@ const routes = [
           requiresAuth: true,
         }
       },
+      {
+        path: '/userAccount', component: () => import('pages/TheUserAccountPage.vue'),
+        meta: {
+          requiresAuth: true,
+        }
+      },
     ]
   },
 
