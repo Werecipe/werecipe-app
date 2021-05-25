@@ -42,8 +42,8 @@
 
 				<span v-show="chosenIngredientsMinus">
 					<span
-						v-for="item in chosenIngredientsMinus"
-						:key="item"
+						v-for="(item, index) in chosenIngredientsMinus"
+						:key="index"
 						@click="removeMin(item)"
 						class="cursor-pointer"
 					>
@@ -55,14 +55,14 @@
 							color="transparent"
 							text-color="primary"
 						>
-							<q-icon name="remove"></q-icon>{{ item }}
+							<q-icon name="remove"></q-icon>{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenMeals">
 					<span
-						v-for="item in chosenMeals"
-						:key="item"
+						v-for="(item, index) in chosenMeals"
+						:key="index"
 						@click="removeMeal(item)"
 						class="cursor-pointer"
 					>
@@ -74,14 +74,14 @@
 							color="transparent"
 							text-color="primary"
 						>
-							{{ item }}
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenDish">
 					<span
-						v-for="item in chosenDish"
-						:key="item"
+						v-for="(item, index) in chosenDish"
+						:key="index"
 						@click="removeDish(item)"
 						class="cursor-pointer"
 					>
@@ -93,14 +93,14 @@
 							color="transparent"
 							text-color="primary"
 						>
-							{{ item }}
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenCuisines">
 					<span
-						v-for="item in chosenCuisines"
-						:key="item"
+						v-for="(item, index) in chosenCuisines"
+						:key="index"
 						@click="removeCuisine(item)"
 						class="cursor-pointer"
 					>
@@ -112,28 +112,33 @@
 							color="transparent"
 							text-color="primary"
 						>
-							{{ item }}
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenTimes">
-					<span @click="removeTime()" class="cursor-pointer">
+					<span
+						v-for="(item, index) in chosenTimes"
+						:key="index"
+						@click="removeTime(item)"
+						class="cursor-pointer"
+					>
 						<q-chip
 							removable
 							dense
 							size="12px"
-							@remove="removeTime()"
+							@remove="removeTime(item)"
 							color="transparent"
 							text-color="primary"
 						>
-							{{ chosenTimes }}min
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenDiets">
 					<span
-						v-for="item in chosenDiets"
-						:key="item"
+						v-for="(item, index) in chosenDiets"
+						:key="index"
 						@click="removeDiet(item)"
 						class="cursor-pointer"
 					>
@@ -145,14 +150,14 @@
 							color="transparent"
 							text-color="primary"
 						>
-							{{ item }}
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenHealths">
 					<span
-						v-for="item in chosenHealths"
-						:key="item"
+						v-for="(item, index) in chosenHealths"
+						:key="index"
 						@click="removeHealth(item)"
 						class="cursor-pointer"
 					>
@@ -164,14 +169,14 @@
 							color="transparent"
 							text-color="primary"
 						>
-							{{ item }}
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenLifestyles">
 					<span
-						v-for="item in chosenLifestyles"
-						:key="item"
+						v-for="(item, index) in chosenLifestyles"
+						:key="index"
 						@click="removeLifestyle(item)"
 						class="cursor-pointer"
 					>
@@ -183,21 +188,26 @@
 							color="transparent"
 							text-color="primary"
 						>
-							{{ item }}
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
 				<span v-show="chosenCalories">
-					<span @click="removeCalories()" class="cursor-pointer">
+					<span
+						v-for="(item, index) in chosenCalories"
+						:key="index"
+						@click="removeCalories(item)"
+						class="cursor-pointer"
+					>
 						<q-chip
 							removable
 							dense
 							size="12px"
-							@remove="removeCalories()"
+							@remove="removeCalories(item)"
 							color="transparent"
 							text-color="primary"
 						>
-							{{ chosenCalories }}kcal
+							{{ item.label }}
 						</q-chip>
 					</span>
 				</span>
@@ -211,263 +221,405 @@
 				result: {{ recipes.count }}
 			</p> -->
 		</div>
-		<q-slide-transition>
-			<div v-show="filter">
-				<q-splitter v-model="splitterModel" :limits="[100, Infinity]" unit="px">
-					<template v-slot:before>
-						<q-tabs
-							v-model="tab"
-							vertical
-							dense
-							content-class="text-secondary my-class flex-start content-start justify-start"
-						>
-							<q-tab
-								name="ingredients"
-								icon="kitchen"
-								label="Ingredients"
-								no-caps
-							/>
-							<q-tab name="meal" icon="brunch_dining" label="Meal" no-caps />
-							<q-tab name="dish" icon="local_dining" label="Dish" no-caps />
-							<q-tab name="cuisine" icon="language" label="Cuisine" no-caps />
-							<q-tab name="time" icon="access_time" label="Time" no-caps />
-							<q-tab name="diet" icon="no_food" label="Diet" no-caps />
-							<q-tab
-								name="health"
-								icon="health_and_safety"
-								label="Health"
-								no-caps
-							/>
-							<q-tab
-								name="lifestyle"
-								icon="self_improvement"
-								label="Lifestyle"
-								no-caps
-							/>
+		<!-- <div v-show="filter">
+			<q-splitter v-model="splitterModel" :limits="[100, Infinity]" unit="px">
+				<template v-slot:before>
+					<q-tabs
+						v-model="tab"
+						vertical
+						dense
+						content-class="text-secondary my-class flex-start content-start justify-start"
+					>
+						<q-tab
+							name="ingredients"
+							icon="kitchen"
+							label="Ingredients"
+							no-caps
+						/>
+						<q-tab name="meal" icon="brunch_dining" label="Meal" no-caps />
+						<q-tab name="dish" icon="local_dining" label="Dish" no-caps />
+						<q-tab name="cuisine" icon="language" label="Cuisine" no-caps />
+						<q-tab name="time" icon="access_time" label="Time" no-caps />
+						<q-tab name="diet" icon="no_food" label="Diet" no-caps />
+						<q-tab
+							name="health"
+							icon="health_and_safety"
+							label="Health"
+							no-caps
+						/>
+						<q-tab
+							name="lifestyle"
+							icon="self_improvement"
+							label="Lifestyle"
+							no-caps
+						/>
 
-							<q-tab name="energy" icon="bolt" label="Energy" no-caps />
-							<q-tab
-								no-caps
-								@click="
-									search();
-									filter = !filter;
-								"
-								><div class="close-btn">
-									<q-icon name="close" color="white"></q-icon></div
-							></q-tab>
-						</q-tabs>
-					</template>
+						<q-tab name="energy" icon="bolt" label="Energy" no-caps />
+						<q-tab
+							no-caps
+							@click="
+								search();
+								filter = !filter;
+							"
+							><div class="close-btn">
+								<q-icon name="close" color="white"></q-icon></div
+						></q-tab>
+					</q-tabs>
+				</template>
 
-					<template v-slot:after>
-						<q-tab-panels
-							v-model="tab"
-							infinite
-							animated
-							swipeable
-							vertical
-							keep-alive
-							transition-prev="jump-right"
-							transition-next="jump-right"
-						>
-							<q-tab-panel name="ingredients">
-								<div class="text-h6 q-mb-md petrona text-primary col-xs-12">
-									Ingredients
-								</div>
-								<div class="row full-width full-height">
-									<div class="col-xs-12 col-md-6">
-										<p class="petrona text-primary">
-											Write ingredients that you don't want in your dish
-										</p>
-										<div class="list">
-											<div class="item multiple-lines row">
-												<q-input
-													v-model="minusIngredient"
-													outlined
-													rounded
-													dense
-													class="col-xs-11"
-													placeholder="add ingredient name"
-													@keydown.enter.prevent="addMinusIngredient()"
+				<template v-slot:after>
+					<q-tab-panels
+						v-model="tab"
+						infinite
+						animated
+						swipeable
+						vertical
+						keep-alive
+						transition-prev="jump-right"
+						transition-next="jump-right"
+					>
+						<q-tab-panel name="ingredients">
+							<div class="text-h6 q-mb-md petrona text-primary col-xs-12">
+								Ingredients
+							</div>
+							<div class="row full-width full-height">
+								<div class="col-xs-12 col-md-6">
+									<p class="petrona text-primary">
+										Write ingredients that you don't want in your dish
+									</p>
+									<div class="list">
+										<div class="item multiple-lines row">
+											<q-input
+												v-model="minusIngredient"
+												outlined
+												rounded
+												dense
+												class="col-xs-11"
+												placeholder="add ingredient name"
+												@keydown.enter.prevent="addMinusIngredient()"
+											>
+												<template v-slot:append>
+													<q-icon
+														name="add"
+														color="secondary"
+														@click="addMinusIngredient()"
+													/>
+												</template>
+											</q-input>
+											<div
+												class="item-content row column justify-start align-start col-xs-12 col-sm-8 col-md-6 col-lg-4 offset-md-1"
+											>
+												<q-chip
+													v-for="item in chosenIngredientsMinus"
+													:key="item"
+													removable
+													size="14px"
+													@remove="removeMin(item)"
+													color="transparent"
+													text-color="primary"
 												>
-													<template v-slot:append>
-														<q-icon
-															name="add"
-															color="secondary"
-															@click="addMinusIngredient()"
-														/>
-													</template>
-												</q-input>
-												<div
-													class="item-content row column justify-start align-start col-xs-12 col-sm-8 col-md-6 col-lg-4 offset-md-1"
-												>
-													<q-chip
-														v-for="item in chosenIngredientsMinus"
-														:key="item"
-														removable
-														size="14px"
-														@remove="removeMin(item)"
-														color="transparent"
-														text-color="primary"
-													>
-														<q-icon name="remove"></q-icon>{{ item }}
-													</q-chip>
-												</div>
+													<q-icon name="remove"></q-icon>{{ item }}
+												</q-chip>
 											</div>
 										</div>
 									</div>
 								</div>
-							</q-tab-panel>
+							</div>
+						</q-tab-panel>
 
-							<q-tab-panel name="meal" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Meal
-								</div>
+						<q-tab-panel name="meal" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Meal
+							</div>
 
-								<q-option-group
-									name="meals"
-									keep-color
-									inline
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									v-model="chosenMeals"
-									:options="meal"
-									color="secondary"
-									type="toggle"
-								/>
-							</q-tab-panel>
+							<q-option-group
+								name="meals"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								v-model="chosenMeals"
+								:options="meal"
+								color="secondary"
+								type="toggle"
+							/>
+						</q-tab-panel>
 
-							<q-tab-panel name="dish" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Dish
-								</div>
+						<q-tab-panel name="dish" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Dish
+							</div>
 
-								<q-option-group
-									name="dish"
-									keep-color
-									inline
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									v-model="chosenDish"
-									:options="dish"
-									color="secondary"
-									type="toggle"
-								/>
-							</q-tab-panel>
-							<q-tab-panel name="cuisine" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Worlds cuisines
-								</div>
+							<q-option-group
+								name="dish"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								v-model="chosenDish"
+								:options="dish"
+								color="secondary"
+								type="toggle"
+							/>
+						</q-tab-panel>
+						<q-tab-panel name="cuisine" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Worlds cuisines
+							</div>
 
-								<q-option-group
-									name="cuisines"
-									keep-color
-									inline
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									v-model="chosenCuisines"
-									:options="cuisines"
-									color="secondary"
-									type="toggle"
-								/>
-							</q-tab-panel>
-							<q-tab-panel name="time" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Max meal cooktime
-								</div>
+							<q-option-group
+								name="cuisines"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								v-model="chosenCuisines"
+								:options="cuisines"
+								color="secondary"
+								type="toggle"
+							/>
+						</q-tab-panel>
+						<q-tab-panel name="time" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Max meal cooktime
+							</div>
 
-								<q-option-group
-									name="time"
-									keep-color
-									inline
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									v-model="chosenTimes"
-									:options="times"
-									color="secondary"
-									type="radio"
-								/>
-							</q-tab-panel>
-							<q-tab-panel name="diet" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Dietary choices
-								</div>
+							<q-option-group
+								name="time"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								v-model="chosenTimes"
+								:options="times"
+								color="secondary"
+								type="radio"
+							/>
+						</q-tab-panel>
+						<q-tab-panel name="diet" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Dietary choices
+							</div>
 
-								<q-option-group
-									name="diet"
-									keep-color
-									inline
-									dense
-									class="q-mr-md petrona text-1rem col-lg-6"
-									v-model="chosenDiets"
-									:options="diets"
-									color="secondary"
-									type="toggle"
-								/>
-							</q-tab-panel>
-							<q-tab-panel name="health" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Health and allergy concerns
-								</div>
+							<q-option-group
+								name="diet"
+								keep-color
+								inline
+								dense
+								class="q-mr-md petrona text-1rem col-lg-6"
+								v-model="chosenDiets"
+								:options="diets"
+								color="secondary"
+								type="toggle"
+							/>
+						</q-tab-panel>
+						<q-tab-panel name="health" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Health and allergy concerns
+							</div>
 
-								<q-option-group
-									name="health"
-									keep-color
-									inline
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									v-model="chosenHealths"
-									:options="healths"
-									color="secondary"
-									type="toggle"
-								/>
-							</q-tab-panel>
-							<q-tab-panel name="lifestyle" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Lifestyle choices
-								</div>
+							<q-option-group
+								name="health"
+								keep-color
+								inline
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								v-model="chosenHealths"
+								:options="healths"
+								color="secondary"
+								type="toggle"
+							/>
+						</q-tab-panel>
+						<q-tab-panel name="lifestyle" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Lifestyle choices
+							</div>
 
-								<q-option-group
-									name="lifestyle"
-									keep-color
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									inline
-									v-model="chosenLifestyles"
-									:options="lifestyles"
-									color="secondary"
-									type="toggle"
-								/>
-							</q-tab-panel>
+							<q-option-group
+								name="lifestyle"
+								keep-color
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								inline
+								v-model="chosenLifestyles"
+								:options="lifestyles"
+								color="secondary"
+								type="toggle"
+							/>
+						</q-tab-panel>
 
-							<q-tab-panel name="energy" class="row">
-								<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
-									Max number of calories
-								</div>
+						<q-tab-panel name="energy" class="row">
+							<div class="text-h6 q-mb-md petrona text-primary col-lg-12">
+								Max number of calories
+							</div>
 
-								<q-option-group
-									name="energy"
-									keep-color
-									dense
-									size="2.2rem"
-									class="q-mr-md petrona text-1rem col-lg-6"
-									inline
-									v-model="chosenCalories"
-									:options="energy"
-									color="secondary"
-									type="radio"
-								/>
-							</q-tab-panel>
-						</q-tab-panels>
-					</template>
-				</q-splitter>
-			</div>
-		</q-slide-transition>
+							<q-option-group
+								name="energy"
+								keep-color
+								dense
+								size="2.2rem"
+								class="q-mr-md petrona text-1rem col-lg-6"
+								inline
+								v-model="chosenCalories"
+								:options="energy"
+								color="secondary"
+								type="radio"
+							/>
+						</q-tab-panel>
+					</q-tab-panels>
+				</template>
+			</q-splitter>
+		</div> -->
+
+		<div class="fit row wrap justify-start items-start content-start">
+			<q-select
+				v-model="chosenMeals"
+				multiple
+				:options="meal"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				label="Meal"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenDish"
+				multiple
+				:options="dish"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				label="Dish"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenCuisines"
+				multiple
+				:options="cuisines"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				label="Cuisines"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenDiets"
+				multiple
+				:options="diets"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				label="Diets"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenHealths"
+				multiple
+				:options="healths"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				label="Health and Allergy"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenLifestyles"
+				multiple
+				:options="lifestyles"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				label="Lifestyle choices"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenCalories"
+				:options="energy"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				multiple
+				max-values="1"
+				label="Max number of calories"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+			<q-select
+				v-model="chosenTimes"
+				:options="times"
+				behavior="menu"
+				use-chips
+				stack-label
+				outlined
+				hide-bottom-space
+				dense
+				options-dense
+				multiple
+				max-values="1"
+				label="Max cook time"
+				color="secondary"
+				label-color="primary"
+				style="width: 150px; margin: 0 0.5rem 0.5rem"
+			/>
+		</div>
+
+		<div>
+			<q-btn
+				color="secondary"
+				icon="Search"
+				label="Search and filter"
+				@click="search"
+			/>
+		</div>
+
+		<q-slide-transition> </q-slide-transition>
 
 		<div class="q-pa-md row items-center justify-center q-gutter-sm">
 			<recipe-card
@@ -500,10 +652,10 @@
 				chosenDiets: [],
 				chosenLifestyles: [],
 				chosenHealths: [],
-				chosenTimes: 0,
+				chosenTimes: [],
 				chosenMeals: [],
 				chosenDish: [],
-				chosenCalories: 0,
+				chosenCalories: [],
 				// allChoises:[],
 				displaychoises: [],
 				to: 100,
@@ -970,54 +1122,66 @@
 		},
 
 		computed: {
-			dispayNumber(num) {
-				return num.ToString();
-			},
+			// dispayNumber(num) {
+			// 	return num.ToString();
+			// },
 
 			dietValue() {
 				let dietVal = "";
-				this.chosenDiets.forEach((element) => (dietVal += "&diet=" + element));
+				this.chosenDiets.forEach(
+					(element) => (dietVal += "&diet=" + element.value)
+				);
 				return dietVal;
 			},
 
 			healthValue() {
 				let healthVal = "";
-				this.chosenHealths.forEach((el) => (healthVal += "&health=" + el));
-				this.chosenLifestyles.forEach((el) => (healthVal += "&health=" + el));
+				this.chosenHealths.forEach((el) => (healthVal += "&health=" + el.value));
+				this.chosenLifestyles.forEach(
+					(el) => (healthVal += "&health=" + el.value)
+				);
 				return healthVal;
 			},
 
 			cuisineValue() {
 				let cuisineVal = "";
-				this.chosenCuisines.forEach((el) => (cuisineVal += "&cuisineType=" + el));
+				this.chosenCuisines.forEach(
+					(el) => (cuisineVal += "&cuisineType=" + el.value)
+				);
 				return cuisineVal;
 			},
 
 			mealValue() {
 				let mealVal = "";
-				this.chosenMeals.forEach((el) => (mealVal += "&mealType=" + el));
+				this.chosenMeals.forEach((el) => (mealVal += "&mealType=" + el.value));
 				return mealVal;
 			},
 
 			dishValue() {
 				let dishVal = "";
-				this.chosenDish.forEach((el) => (dishVal += "&dishType=" + el));
+				this.chosenDish.forEach((el) => (dishVal += "&dishType=" + el.value));
 				return dishVal;
 			},
 
 			caloriesValue() {
 				let caloriesVal = "";
-				if (this.chosenCalories) {
-					caloriesVal += "&calories=" + this.chosenCalories;
-				}
+				this.chosenCalories.forEach(
+					(el) => (caloriesVal += "&calories=" + el.value)
+				);
 				return caloriesVal;
 			},
 
 			timeValue() {
 				let timeVal = "";
-				if (this.chosenTimes) {
-					timeVal += "&time=" + this.chosenTimes;
-				}
+
+				this.chosenTimes.forEach(
+					(el) => (
+						(timeVal += "&time=" + el.value),
+						console.log(el),
+						console.log(el.value),
+						console.log(timeVal)
+					)
+				);
 				return timeVal;
 			},
 
@@ -1028,13 +1192,17 @@
 				);
 				return excludedVal;
 			},
-			recipesCount() {
-				return this.recipes.count;
-			},
+			// recipesCount() {
+			// 	return this.recipes.count;
+			// },
 		},
 
 		methods: {
 			async search() {
+				console.log(
+					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
+				);
+
 				let responseApi = await fetch(
 					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
 				);
@@ -1102,14 +1270,14 @@
 				);
 			},
 
-			removeTime() {
+			removeTime(item) {
 				// console.log(this.chosenIngredientsMinus + " and " + item);
-				this.chosenTimes = 0;
+				this.chosenTimes = this.chosenTimes.filter((ele) => ele !== item);
 			},
 
 			removeCalories() {
 				// console.log(this.chosenIngredientsMinus + " and " + item);
-				this.chosenCalories = 0;
+				this.chosenCalories = this.chosenCalories.filter((ele) => ele !== item);
 			},
 
 			// addPlusIngredient(val) {

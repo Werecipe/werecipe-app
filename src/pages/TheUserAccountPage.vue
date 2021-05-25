@@ -15,6 +15,7 @@
 					class="col-xs-12 col-md-4 offset-md-4 q-gutter-y-sm overflow-auto q-mb-md"
 				>
 					<q-input
+						readonly
 						outlined
 						v-model="email"
 						label="email"
