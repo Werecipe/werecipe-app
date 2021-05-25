@@ -3,7 +3,7 @@
 		<div
 			class="full-width column justify-center items-center content-center petrona"
 		>
-			<h1 class="text-h3 text-center georgeItalic">
+			<h1 class="text-h5 text-center georgeItalic">
 				Your dedicated recipe search
 			</h1>
 			<q-input
@@ -477,7 +477,10 @@
 			</q-splitter>
 		</div> -->
 
-		<div class="fit row wrap justify-start items-start content-start">
+		<div
+			v-show="filter"
+			class="fit row wrap justify-start items-start content-start"
+		>
 			<q-select
 				v-model="chosenMeals"
 				multiple
@@ -492,7 +495,7 @@
 				label="Meal"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenDish"
@@ -508,7 +511,7 @@
 				label="Dish"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenCuisines"
@@ -524,7 +527,7 @@
 				label="Cuisines"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenDiets"
@@ -540,7 +543,7 @@
 				label="Diets"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenHealths"
@@ -556,7 +559,7 @@
 				label="Health and Allergy"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenLifestyles"
@@ -572,7 +575,7 @@
 				label="Lifestyle choices"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenCalories"
@@ -589,7 +592,7 @@
 				label="Max number of calories"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 			<q-select
 				v-model="chosenTimes"
@@ -606,14 +609,14 @@
 				label="Max cook time"
 				color="secondary"
 				label-color="primary"
-				style="width: 150px; margin: 0 0.5rem 0.5rem"
+				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
 			/>
 		</div>
 
-		<div>
+		<div class="row justify-center items-center q-pa-md">
 			<q-btn
 				color="secondary"
-				icon="Search"
+				icon="search"
 				label="Search and filter"
 				@click="search"
 			/>
@@ -642,7 +645,7 @@
 			return {
 				tab: "ingredients",
 				splitterModel: 15,
-				filter: false,
+				filter: true,
 				recipeName: "",
 				// plusIngredient: "",
 				minusIngredient: "",
