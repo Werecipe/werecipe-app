@@ -616,7 +616,7 @@
 		<div class="row justify-center items-center q-pa-md">
 			<q-btn
 				color="secondary"
-				icon="search"
+				icon="manage_search"
 				label="Search and filter"
 				@click="search"
 			/>
