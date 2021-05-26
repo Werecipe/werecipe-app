@@ -493,6 +493,7 @@
 				dense
 				options-dense
 				label="Meal"
+				popup-content-style="max-height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
@@ -509,6 +510,7 @@
 				dense
 				options-dense
 				label="Dish"
+				popup-content-style="height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
@@ -525,6 +527,7 @@
 				dense
 				options-dense
 				label="Cuisines"
+				popup-content-style="height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
@@ -541,6 +544,7 @@
 				dense
 				options-dense
 				label="Diets"
+				popup-content-style="max-height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
@@ -556,6 +560,7 @@
 				hide-bottom-space
 				dense
 				options-dense
+				popup-content-style="height:250px"
 				label="Health and Allergy"
 				color="secondary"
 				label-color="primary"
@@ -573,6 +578,7 @@
 				dense
 				options-dense
 				label="Lifestyle choices"
+				popup-content-style="height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
@@ -590,6 +596,7 @@
 				multiple
 				max-values="1"
 				label="Max number of calories"
+				popup-content-style="max-height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
@@ -607,6 +614,7 @@
 				multiple
 				max-values="1"
 				label="Max cook time"
+				popup-content-style="max-height:250px"
 				color="secondary"
 				label-color="primary"
 				style="flex: 1 1 150px; margin: 0 0.5rem 0.5rem"
