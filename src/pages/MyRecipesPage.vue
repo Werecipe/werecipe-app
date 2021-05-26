@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="text-h3 text-center georgeItalic">My saved recipes</h1>
+		<h1 class="text-h5 text-center georgeItalic">My saved recipes</h1>
 		<div
 			v-if="userSavedRecipes"
 			class="q-pa-md row items-center justify-center q-gutter-sm"

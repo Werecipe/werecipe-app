@@ -30,9 +30,10 @@ const actions = {
     .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-      db.collection("Users").doc(user.uid).set(data)
+      db.collection("Users").doc(user.uid).set(data);
   })
-  .then((response) => {
+      .then((res) => {
+    
   })
   .catch((error) => {
     Notify.create(error.message);
@@ -84,7 +85,7 @@ const actions = {
               userId: user
 
             });
-            this.$router.replace('/recipeSearch')
+            this.$router.replace('/recipeSearch');
           };
         });
 
