@@ -70,8 +70,8 @@
 		name: "Login",
 		data() {
 			return {
-				email: "test01@test.com",
-				password: "test010101",
+				email: "",
+				password: "",
 				isPwd: true,
 			};
 		},
