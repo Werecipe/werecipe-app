@@ -14,6 +14,7 @@
 				style="max-width: 550px; width: 100%"
 				class="q-mb-md"
 				@keydown.enter.prevent="search"
+				@focus="recipeName = ''"
 			>
 				<template v-slot:append>
 					<q-icon name="search" clickable @click="search" />
@@ -633,7 +634,16 @@
 		<q-slide-transition> </q-slide-transition>
 
 		<div class="q-pa-md row items-center justify-center q-gutter-sm">
+			<p v-if="searching" class="text-h5 text-center georgeItalic">
+				Searching...
+			</p>
+			<p v-else-if="noResults" class="text-h5 text-center georgeItalic">
+				No result were found for your search, try a simpler keywords or phrases
+				and less filers
+			</p>
+
 			<recipe-card
+				else
 				v-for="el in recipes.hits"
 				:key="el.index"
 				v-bind="el"
@@ -644,6 +654,7 @@
 
 <script>
 	import { API_ID, API_KEY } from "../../Edamam-key.js";
+	import { Notify } from "quasar";
 	export default {
 		name: "recipeSearch",
 		components: {
@@ -669,6 +680,8 @@
 				chosenCalories: [],
 				// allChoises:[],
 				displaychoises: [],
+				searching: false,
+				noResults: false,
 				to: 100,
 				from: 0,
 				cuisines: [
@@ -1210,15 +1223,26 @@
 
 		methods: {
 			async search() {
-				console.log(
-					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
-				);
+				if (this.recipeName) {
+					this.noResults = false;
+					this.searching = true;
+					this.recipes = [];
 
-				let responseApi = await fetch(
-					`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
-				);
-				let data = await responseApi.json();
-				this.recipes = data;
+					let responseApi = await fetch(
+						`https://api.edamam.com/search?app_id=${API_ID}&app_key=${API_KEY}&to=100&q=${this.recipeName}${this.dietValue}${this.healthValue}${this.cuisineValue}${this.mealValue}${this.dishValue}${this.caloriesValue}${this.timeValue}${this.excludedValue}`
+					);
+					let data = await responseApi.json();
+					if (data.count) {
+						this.recipes = data;
+						this.searching = false;
+					} else {
+						this.searching = false;
+						this.noResults = true;
+					}
+				} else {
+					this.notify("negative");
+					this.$q.notify("You must provide a recipe name");
+				}
 			},
 
 			reset() {
@@ -1302,16 +1326,16 @@
 			// 	}
 			// },
 
-			addMinusIngredient(val) {
-				if (this.minusIngredient) {
-					this.chosenIngredientsMinus.push(this.minusIngredient);
-					this.minusIngredient = "";
-					return;
-				} else {
-					this.notify("negative");
-					this.$q.notify("The field must have value");
-				}
-			},
+			// addMinusIngredient(val) {
+			// 	if (this.minusIngredient) {
+			// 		this.chosenIngredientsMinus.push(this.minusIngredient);
+			// 		this.minusIngredient = "";
+			// 		return;
+			// 	} else {
+			// 		this.notify("negative");
+			// 		this.$q.notify("The field must have value");
+			// 	}
+			// },
 
 			notify(type) {
 				this.$q.notify.setDefaults({
